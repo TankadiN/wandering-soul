@@ -27,14 +27,6 @@ public class PlayerController : MonoBehaviour {
 	
 	void Update ()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            currentHealth--;
-        }
-        if (Input.GetKey(KeyCode.E))
-        {
-            currentExperience++;
-        }
         if (currentExperience >= maxExperience)
         {
             LevelUp();
@@ -54,7 +46,7 @@ public class PlayerController : MonoBehaviour {
         string sMaxExp = maxExperience.ToString();
         string sCurExp = currentExperience.ToString();
 
-        hpTextbox.text = sCurHp + "/" + sMaxHp;
+        hpTextbox.text = "hp " + sCurHp + "/" + sMaxHp;
         lvlTextbox.text = "lv " + level;
         expTextbox.text = "exp " + sCurExp + "/" + sMaxExp;
 
@@ -68,9 +60,21 @@ public class PlayerController : MonoBehaviour {
         AudioManager.instance.Play("levelup");
         bar.GetComponent<RectTransform>().sizeDelta += new Vector2(25f, 0f);
         level++;
-        maxHealth += 4f;
+        maxHealth += 4;
         currentHealth = maxHealth;
-        maxExperience += 50f;
-        currentExperience = 0f;
+        float leftoverExp = currentExperience - maxExperience;
+        maxExperience += 50;
+        currentExperience = 0 + leftoverExp;
+        
+    }
+
+    public void Damage(float amount)
+    {
+        currentHealth -= amount;
+    }
+
+    public void GiveExp(float amount)
+    {
+        currentExperience -= amount;
     }
 }
