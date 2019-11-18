@@ -75,6 +75,6 @@ public class PlayerController : MonoBehaviour {
 
     public void GiveExp(float amount)
     {
-        currentExperience -= amount;
+        currentExperience += amount;
     }
 }
