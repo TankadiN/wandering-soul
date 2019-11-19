@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Fungus;
 
 public class PlayerMovement : MonoBehaviour
 {
-
+    public static PlayerMovement inst;
     public static Vector2 Position;
 
     public float moveSpeed = 5f;
@@ -13,6 +14,8 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody2D rb;
     private Animator anim;
+
+    private Flowchart flow;
 
     Vector2 movement = Vector2.zero;
     Vector2 velocity = Vector2.zero;
@@ -24,6 +27,8 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        flow = GameObject.Find("Flowchart").GetComponent<Flowchart>();
+        inst = this;
     }
 
     // Update is called once per frame
@@ -42,7 +47,6 @@ public class PlayerMovement : MonoBehaviour
             anim.SetFloat("lastmoveX", Input.GetAxisRaw("Horizontal"));
             anim.SetFloat("lastmoveY", Input.GetAxisRaw("Vertical"));
         }
-
     }
 
     private void FixedUpdate()
@@ -61,4 +65,16 @@ public class PlayerMovement : MonoBehaviour
         Position = rb.position;
     }
 
+
+    public void SwitchEnabled()
+    {
+        if(enabled)
+        {
+            enabled = false;
+        }
+        else
+        {
+            enabled = true;
+        }
+    }
 }

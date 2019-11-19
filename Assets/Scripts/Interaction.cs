@@ -16,6 +16,7 @@ public class Interaction : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E))
             {
                 Debug.Log(collision.gameObject.name + " interacted with " + gameObject.name);
+                PlayerMovement.inst.SwitchEnabled();
                 if (!flow.HasExecutingBlocks())
                 {
                     flow.ExecuteBlock(blockName);
