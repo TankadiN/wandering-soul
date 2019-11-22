@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Fungus;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -15,7 +14,6 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private Animator anim;
 
-    private Flowchart flow;
 
     Vector2 movement = Vector2.zero;
     Vector2 velocity = Vector2.zero;
@@ -27,7 +25,6 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        flow = GameObject.Find("Flowchart").GetComponent<Flowchart>();
         inst = this;
     }
 

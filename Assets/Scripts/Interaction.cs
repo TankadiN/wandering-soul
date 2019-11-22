@@ -1,27 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Fungus;
 
 public class Interaction : MonoBehaviour
 {
-    public Flowchart flow;
-    public string blockName;
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.tag == "NPC")
         {
             Debug.Log(collision.gameObject.name);
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetButtonDown("Submit"))
             {
-                Debug.Log(collision.gameObject.name + " interacted with " + gameObject.name);
+                Debug.Log(gameObject.name + " interacted with " + collision.gameObject.name);
                 PlayerMovement.inst.SwitchEnabled();
-                if (!flow.HasExecutingBlocks())
-                {
-                    flow.ExecuteBlock(blockName);
-                }
             }
         }
+
     }
 }

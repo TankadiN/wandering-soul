@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Fungus;
 
 public class KeyCombo : MonoBehaviour
 {
@@ -9,8 +8,6 @@ public class KeyCombo : MonoBehaviour
     private string[] strArr;
     public KeyCode[] combo;
     public int currentIndex = 0;
-    public Flowchart flow;
-    public string blockName;
 
 
     void Start()
@@ -48,8 +45,13 @@ public class KeyCombo : MonoBehaviour
         else
         {
             Debug.Log("Combo done.");
-            flow.ExecuteBlock(blockName);
+            Invoke(inputname, 0f);
             currentIndex = 0;
         }
+    }
+
+    public void DEBUG()
+    {
+        Debugging.instance.EnableDebugMenu();
     }
 }
