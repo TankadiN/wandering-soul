@@ -19,10 +19,14 @@ public class PlayerController : MonoBehaviour {
     public float level;
     public float maxExperience;
     public float currentExperience;
+    [Header("Color Control")]
+    public SpriteRenderer outlinePlayer;
+    public SpriteRenderer soulPlayer;
 
     void Start ()
     {
         currentHealth = maxHealth;
+        soulPlayer.color = new Color(outlinePlayer.color.r, outlinePlayer.color.g, outlinePlayer.color.b, 0);
 	}
 	
 	void Update ()

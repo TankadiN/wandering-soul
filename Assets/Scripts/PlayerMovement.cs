@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody2D rb;
     private Animator anim;
-
+    private Interaction inter;
 
     Vector2 movement = Vector2.zero;
     Vector2 velocity = Vector2.zero;
@@ -25,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        inter = GetComponent<Interaction>();
         inst = this;
     }
 
@@ -54,24 +55,11 @@ public class PlayerMovement : MonoBehaviour
 
         Vector2 lookDir = mousePos - rb.position;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
-        if(aimAtCursor)
+        if (aimAtCursor)
         {
             rb.rotation = angle + 180f;
         }
 
         Position = rb.position;
-    }
-
-
-    public void SwitchEnabled()
-    {
-        if(enabled)
-        {
-            enabled = false;
-        }
-        else
-        {
-            enabled = true;
-        }
     }
 }
