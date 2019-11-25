@@ -40,8 +40,8 @@ public class Interaction : MonoBehaviour
                 if (flow.HasBlock(NPCName))
                 {
                     Debug.Log(gameObject.name + " interacted with " + NPCName);
-                    flow.ExecuteBlock(NPCName);
                     isInteracting = true;
+                    flow.ExecuteBlock(NPCName);
                 }
             }
         }
