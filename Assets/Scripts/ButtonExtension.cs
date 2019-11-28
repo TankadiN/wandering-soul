@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.EventSystems;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -15,6 +16,7 @@ public class ButtonExtension : MonoBehaviour
     {
         myButton = GetComponent<Button>();
     }
+
 
     void Update()
     {
@@ -40,7 +42,7 @@ public class ButtonExtension : MonoBehaviour
         {
             for (int i = 0; i <= Images.Count - 1; i++)
             {
-                Images[i].color = myButton.colors.normalColor;
+                Images[i].color = myButton.colors.highlightedColor;
             }
             for (int i = 0; i <= Texts.Count - 1; i++)
             {

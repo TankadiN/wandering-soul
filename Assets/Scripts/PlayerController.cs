@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour {
     {
         currentHealth = maxHealth;
         soulPlayer.color = new Color(outlinePlayer.color.r, outlinePlayer.color.g, outlinePlayer.color.b, 0);
+        AudioManager.instance.Play("waterfall");
 	}
 	
 	void Update ()
