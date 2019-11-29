@@ -19,7 +19,6 @@ public class MenuInput : MonoBehaviour, ISelectHandler
     void OnEnable()
     {
         EventSystem.current.SetSelectedGameObject(FirstSelect);
-        EventSystem.current.SetSelectedGameObject(null);
     }
 
     void Update()

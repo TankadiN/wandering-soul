@@ -7,6 +7,7 @@ public class Interaction : MonoBehaviour
 {
     public bool isInteracting;
     public string NPCName;
+    public ItemObject item;
 
     private Flowchart flow;
     private PlayerMovement pMov;
@@ -24,11 +25,17 @@ public class Interaction : MonoBehaviour
             Debug.Log(collision.gameObject.name);
             NPCName = collision.gameObject.name;
         }
+        if (collision.tag == "Item")
+        {
+            NPCName = collision.gameObject.name;
+            item = collision.GetComponent<Item>().item;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         NPCName = null;
+        item = null;
     }
 
     private void Update()

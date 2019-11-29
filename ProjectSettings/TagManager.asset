@@ -6,6 +6,7 @@ TagManager:
   tags:
   - AttackArea
   - NPC
+  - Item
   layers:
   - Default
   - TransparentFX

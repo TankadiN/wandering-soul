@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour {
     public TMP_Text hpTextbox;
     public TMP_Text lvlTextbox;
     public TMP_Text expTextbox;
+    [Header("Inventory")]
+    public InventoryObject inventory;
     [Header("Health Variables")]
     public float maxHealth;
     public float currentHealth;
@@ -81,5 +83,19 @@ public class PlayerController : MonoBehaviour {
     public void GiveExp(float amount)
     {
         currentExperience += amount;
+    }
+
+    public void PickupItem()
+    {
+        ItemObject item = GetComponent<Interaction>().item;
+        if(item)
+        {
+            inventory.AddItem(item);
+        }
+    }
+
+    private void OnApplicationQuit()
+    {
+        inventory.Container.Clear();
     }
 }
