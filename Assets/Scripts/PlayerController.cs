@@ -80,6 +80,11 @@ public class PlayerController : MonoBehaviour {
         currentHealth -= amount;
     }
 
+    public void Heal(float amount)
+    {
+        currentHealth += amount;
+    }
+
     public void GiveExp(float amount)
     {
         currentExperience += amount;

@@ -3,22 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using UnityEngine.Events;
 
-public class MenuInput : MonoBehaviour, ISelectHandler
+public class MenuInput : MonoBehaviour
 {
+    public static MenuInput instance;
     public Button[] buttons;
     public GameObject FirstSelect;
     public GameObject Selected;
 
-    private void Awake()
-    {
-        Selected = FirstSelect;
-    }
-
-    void OnEnable()
+    void Awake()
     {
         EventSystem.current.SetSelectedGameObject(FirstSelect);
+        if (instance != null)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
     }
 
     void Update()
@@ -28,26 +32,9 @@ public class MenuInput : MonoBehaviour, ISelectHandler
         {
             EventSystem.current.SetSelectedGameObject(Selected);
         }
-        if (EventSystem.current.currentSelectedGameObject.GetComponent<Button>().interactable == false)
+        else
         {
-            for (int i = 0; i < buttons.Length; i++)
-            {
-                if(buttons[i].interactable)
-                {
-                    EventSystem.current.SetSelectedGameObject(buttons[i].gameObject);
-                    break;
-                }
-                else
-                {
-                    Debug.Log(EventSystem.current.currentSelectedGameObject + " is NOT active!");
-                }
-            }
+            Selected = EventSystem.current.currentSelectedGameObject;
         }
-        Selected = EventSystem.current.currentSelectedGameObject;
-    }
-
-    public void OnSelect(BaseEventData eventData)
-    {
-        Debug.Log("Changed Button");
     }
 }

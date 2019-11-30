@@ -10,6 +10,11 @@ public class InventoryObject : ScriptableObject
     {
         Container.Add(new InventorySlot(_item));
     }
+
+    public void RemoveItem(int ID)
+    {
+        Container.RemoveAt(ID);
+    }
 }
 
 [System.Serializable]

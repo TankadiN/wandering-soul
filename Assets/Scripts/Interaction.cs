@@ -65,6 +65,13 @@ public class Interaction : MonoBehaviour
 
     public void InteractionSwitch()
     {
-        isInteracting = false;
+        if (isInteracting)
+        {
+            isInteracting = false;
+        }
+        else
+        {
+            isInteracting = true;
+        }
     }
 }

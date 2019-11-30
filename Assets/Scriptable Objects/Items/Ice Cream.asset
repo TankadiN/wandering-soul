@@ -9,9 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2b22944afd25f3418413e3db40a766d, type: 3}
-  m_Name: TestKeyItem
+  m_Script: {fileID: 11500000, guid: ac8136ea1b993894da76613c28a05719, type: 3}
+  m_Name: Ice Cream
   m_EditorClassIdentifier: 
-  image: {fileID: -5758475326228034808, guid: f3f33b0929b78ce47b9c17d553cb7337, type: 3}
-  type: 2
-  description: Simple Test Item but looks like a fancy rock.
+  image: {fileID: 758679538213734533, guid: 15b46920e8ffd8f4894a5345e4dcf1ac, type: 3}
+  type: 0
+  description: 'It''s tasty!
+
+    Recovers 10 Hp.'
+  restoreHealthValue: 10

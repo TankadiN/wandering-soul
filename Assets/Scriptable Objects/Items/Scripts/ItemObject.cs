@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum ItemType
 {
@@ -11,8 +12,9 @@ public enum ItemType
 
 public class ItemObject : ScriptableObject
 {
-    public GameObject prefab;
+    public Sprite image;
     public ItemType type;
     [TextArea]
     public string description;
+    public float restoreHealthValue;
 }

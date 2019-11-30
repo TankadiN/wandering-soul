@@ -8,6 +8,11 @@ public class DisplayInventory : MonoBehaviour
 {
     public InventoryObject inventory;
     public List<Button> ItemSlots;
+    [Header("Item Inspection")]
+    public Image itemImage;
+    public TMP_Text itemName;
+    public TMP_Text itemDesc;
+    public int saveID;
 
     void Start()
     {
@@ -45,5 +50,24 @@ public class DisplayInventory : MonoBehaviour
                 ItemSlots[i].interactable = true;
             }
         }
+    }
+
+    public void ReUpdate()
+    {
+        for (int i = 0; i < ItemSlots.Count; i++)
+        {
+            ItemSlots[i].GetComponentInChildren<TMP_Text>().text = "[NO ITEM]";
+        }
+    }
+
+    public void GetItemInfo(int ID)
+    {
+        saveID = ID;
+        itemImage.sprite = inventory.Container[ID].item.image;
+        itemName.text = inventory.Container[ID].item.name;
+        itemDesc.text = inventory.Container[ID].item.description;
+        GetComponent<ItemInspect>().ID = saveID;
+        GetComponent<ItemInspect>().SendInfoToFlow();
+        GetComponent<GameMenu>().ItemInspectOpen();
     }
 }

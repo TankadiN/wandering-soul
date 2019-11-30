@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class Debugging : MonoBehaviour
 {
@@ -19,5 +21,6 @@ public class Debugging : MonoBehaviour
         AudioManager.instance.Play("victory");
         MainMenu.SetActive(false);
         DebugMenu.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(DebugMenu.GetComponentInChildren<Button>().gameObject);
     }
 }
