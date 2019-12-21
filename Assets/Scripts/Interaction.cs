@@ -7,7 +7,7 @@ public class Interaction : MonoBehaviour
 {
     public bool isInteracting;
     public string NPCName;
-    public ItemObject item;
+    public bool isItem;
 
     private Flowchart flow;
     private PlayerMovement pMov;
@@ -28,14 +28,14 @@ public class Interaction : MonoBehaviour
         if (collision.tag == "Item")
         {
             NPCName = collision.gameObject.name;
-            item = collision.GetComponent<Item>().item;
+            isItem = true;
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         NPCName = null;
-        item = null;
+        isItem = false;
     }
 
     private void Update()
@@ -44,10 +44,15 @@ public class Interaction : MonoBehaviour
         {
             if (!isInteracting)
             {
-                if (flow.HasBlock(NPCName))
+                Debug.Log(gameObject.name + " interacted with " + NPCName);
+                isInteracting = true;
+                if (isItem)
                 {
-                    Debug.Log(gameObject.name + " interacted with " + NPCName);
-                    isInteracting = true;
+                    flow.SetStringVariable("ItemName", NPCName);
+                    flow.ExecuteBlock("PickupItem");
+                }
+                else
+                {
                     flow.ExecuteBlock(NPCName);
                 }
             }

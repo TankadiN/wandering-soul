@@ -74,4 +74,9 @@ public class GameMenu : MonoBehaviour
         ItemInspect.SetActive(true);
         EventSystem.current.SetSelectedGameObject(ItemInspect.GetComponentInChildren<Button>().gameObject);
     }
+
+    public void GameSave()
+    {
+        GameEvents.OnSaveInitiated();
+    }
 }

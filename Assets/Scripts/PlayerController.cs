@@ -9,11 +9,12 @@ public class PlayerController : MonoBehaviour {
     [Header("Game Objects")]
     public Slider bar;
     public Image soul;
+    public TMP_Text nameTextbox;
     public TMP_Text hpTextbox;
     public TMP_Text lvlTextbox;
     public TMP_Text expTextbox;
-    [Header("Inventory")]
-    public InventoryObject inventory;
+    [Header("Player Variables")]
+    public string playerName;
     [Header("Health Variables")]
     public float maxHealth;
     public float currentHealth;
@@ -29,8 +30,10 @@ public class PlayerController : MonoBehaviour {
     {
         currentHealth = maxHealth;
         soulPlayer.color = new Color(outlinePlayer.color.r, outlinePlayer.color.g, outlinePlayer.color.b, 0);
-        AudioManager.instance.Play("waterfall");
-	}
+        //AudioManager.instance.Play("waterfall");
+        GameEvents.SaveInitiated += Save;
+        Load();
+    }
 	
 	void Update ()
     {
@@ -44,7 +47,7 @@ public class PlayerController : MonoBehaviour {
         }
         if(currentHealth <= 0)
         {
-            Destroy(gameObject);
+            
         }
         //Display Logic
         string sMaxHp = maxHealth.ToString();
@@ -90,17 +93,41 @@ public class PlayerController : MonoBehaviour {
         currentExperience += amount;
     }
 
-    public void PickupItem()
+    void Save()
     {
-        ItemObject item = GetComponent<Interaction>().item;
-        if(item)
-        {
-            inventory.AddItem(item);
-        }
+        SaveLoad.Save<string>(playerName, "PlayerName");
+        SaveLoad.Save<float>(maxHealth, "PlayerMaxHP");
+        SaveLoad.Save<float>(currentHealth, "PlayerCurHP");
+        SaveLoad.Save<float>(level, "PlayerLevel");
+        SaveLoad.Save<float>(maxExperience, "PlayerMaxXP");
+        SaveLoad.Save<float>(currentExperience, "PlayerCurXP");
     }
-
-    private void OnApplicationQuit()
+    
+    void Load()
     {
-        inventory.Container.Clear();
+        if (SaveLoad.SaveExists("PlayerMaxHP"))
+        {
+            playerName = SaveLoad.Load<string>("PlayerName");
+        }
+        if (SaveLoad.SaveExists("PlayerMaxHP"))
+        {
+            maxHealth = SaveLoad.Load<float>("PlayerMaxHP");
+        }
+        if (SaveLoad.SaveExists("PlayerCurHP"))
+        {
+            currentHealth = SaveLoad.Load<float>("PlayerCurHP");
+        }
+        if (SaveLoad.SaveExists("PlayerLevel"))
+        {
+            level = SaveLoad.Load<float>("PlayerLevel");
+        }
+        if (SaveLoad.SaveExists("PlayerMaxXP"))
+        {
+            maxExperience = SaveLoad.Load<float>("PlayerMaxXP");
+        }
+        if (SaveLoad.SaveExists("PlayerCurXP"))
+        {
+            currentExperience = SaveLoad.Load<float>("PlayerCurXP");
+        }
     }
 }
