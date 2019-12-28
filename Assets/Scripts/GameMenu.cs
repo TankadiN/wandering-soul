@@ -6,11 +6,13 @@ using UnityEngine.UI;
 
 public class GameMenu : MonoBehaviour
 {
+    [Header("Ingame Menu")]
     public GameObject GamePanel;
-    [Header("Items")]
     public GameObject ItemPanel;
     public GameObject ItemInspect;
-
+    [Header("Save Menu")]
+    public GameObject SavePanel;
+    public bool playerSaved;
     private Interaction interaction;
 
     private void Start()
@@ -22,22 +24,38 @@ public class GameMenu : MonoBehaviour
     {
         if(Input.GetButtonDown("Menu"))
         {
-            if(GamePanel.activeInHierarchy)
+            if (SavePanel.activeInHierarchy)
             {
-                CloseAll();
-                interaction.InteractionSwitch();
-                EventSystem.current.SetSelectedGameObject(GamePanel.transform.Find("MainList").transform.Find("Status").gameObject);
+                if(playerSaved)
+                {
+                    SavePanel.SetActive(false);
+                    interaction.InteractionSwitch();
+                }
             }
             else
             {
-                GamePanel.SetActive(true);
-                EventSystem.current.SetSelectedGameObject(GamePanel.GetComponentInChildren<Button>().gameObject);
-                interaction.InteractionSwitch();
+                if (GamePanel.activeInHierarchy)
+                {
+                    CloseAll();
+                    interaction.InteractionSwitch();
+                    EventSystem.current.SetSelectedGameObject(GamePanel.transform.Find("MainList").transform.Find("Status").gameObject);
+                }
+                else
+                {
+                    GamePanel.SetActive(true);
+                    EventSystem.current.SetSelectedGameObject(GamePanel.GetComponentInChildren<Button>().gameObject);
+                    interaction.InteractionSwitch();
+                }
             }
         }
         if (Input.GetButtonDown("Cancel"))
         {
-            if (ItemInspect.activeInHierarchy)
+            if(SavePanel.activeInHierarchy)
+            {
+                SavePanel.SetActive(false);
+                interaction.InteractionSwitch();
+            }
+            else if (ItemInspect.activeInHierarchy)
             {
                 ItemInspect.SetActive(false);
                 EventSystem.current.SetSelectedGameObject(ItemPanel.GetComponentInChildren<Button>().gameObject);
@@ -52,6 +70,17 @@ public class GameMenu : MonoBehaviour
                 GamePanel.SetActive(false);
                 EventSystem.current.SetSelectedGameObject(GamePanel.transform.Find("MainList").transform.Find("Status").gameObject);
                 interaction.InteractionSwitch();
+            }
+        }
+        if(Input.GetButtonDown("Submit"))
+        {
+            if (SavePanel.activeInHierarchy)
+            {
+                if (playerSaved)
+                {
+                    SavePanel.SetActive(false);
+                    interaction.InteractionSwitch();
+                }
             }
         }
     }
@@ -75,8 +104,9 @@ public class GameMenu : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(ItemInspect.GetComponentInChildren<Button>().gameObject);
     }
 
-    public void GameSave()
+    public void SavePanelOpen()
     {
-        GameEvents.OnSaveInitiated();
+        SavePanel.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(SavePanel.GetComponentInChildren<Button>().gameObject);
     }
 }

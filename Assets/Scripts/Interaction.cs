@@ -6,15 +6,21 @@ using Fungus;
 public class Interaction : MonoBehaviour
 {
     public bool isInteracting;
-    public string NPCName;
+    public string objectName;
     public bool isItem;
+    public bool isSave;
 
-    private Flowchart flow;
+    [SerializeField]
+    private Flowchart mainFlow;
+    [SerializeField]
+    private Flowchart saveFlow;
     private PlayerMovement pMov;
+
+    private float pPosX;
+    private float pPosY;
 
     private void Start()
     {
-        flow = GameObject.Find("Flowchart").GetComponent<Flowchart>();
         pMov = GetComponent<PlayerMovement>();
     }
 
@@ -23,19 +29,27 @@ public class Interaction : MonoBehaviour
         if (collision.tag == "NPC")
         {
             Debug.Log(collision.gameObject.name);
-            NPCName = collision.gameObject.name;
+            objectName = collision.gameObject.name;
         }
         if (collision.tag == "Item")
         {
-            NPCName = collision.gameObject.name;
+            objectName = collision.gameObject.name;
             isItem = true;
+        }
+        if (collision.tag == "Savepoint")
+        {
+            objectName = collision.gameObject.name;
+            pPosX = collision.transform.GetChild(0).transform.position.x;
+            pPosY = collision.transform.GetChild(0).transform.position.y;
+            isSave = true;
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        NPCName = null;
+        objectName = null;
         isItem = false;
+        isSave = false;
     }
 
     private void Update()
@@ -44,16 +58,22 @@ public class Interaction : MonoBehaviour
         {
             if (!isInteracting)
             {
-                Debug.Log(gameObject.name + " interacted with " + NPCName);
+                Debug.Log(gameObject.name + " interacted with " + objectName);
                 isInteracting = true;
                 if (isItem)
                 {
-                    flow.SetStringVariable("ItemName", NPCName);
-                    flow.ExecuteBlock("PickupItem");
+                    mainFlow.SetStringVariable("ItemName", objectName);
+                    mainFlow.ExecuteBlock("PickupItem");
+                }
+                if(isSave)
+                {
+                    saveFlow.ExecuteBlock(objectName);
+                    GameObject.Find("GameManager").GetComponent<Savepoint>().PlayerPositionX = pPosX;
+                    GameObject.Find("GameManager").GetComponent<Savepoint>().PlayerPositionY = pPosY;
                 }
                 else
                 {
-                    flow.ExecuteBlock(NPCName);
+                    mainFlow.ExecuteBlock(objectName);
                 }
             }
         }

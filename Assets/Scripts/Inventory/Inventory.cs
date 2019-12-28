@@ -1,12 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Fungus;
 
 public class Inventory : MonoBehaviour
 {
+    public int maxItems;
+    public bool isFull;
     public List<Item> Items;
     [SerializeField]
     private ItemDatabase database;
+    [SerializeField]
+    private Flowchart flow;
 
     private void Start()
     {
@@ -36,6 +41,19 @@ public class Inventory : MonoBehaviour
         {
             AddItem(item.itemName);
         }
+    }
+
+    public void CheckCapacity()
+    {
+        if(Items.Count < maxItems)
+        {
+            isFull = false;
+        }
+        else
+        {
+            isFull = true;
+        }
+        flow.SetBooleanVariable("isFull", isFull);
     }
 
     void Save()

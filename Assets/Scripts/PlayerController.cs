@@ -56,6 +56,7 @@ public class PlayerController : MonoBehaviour {
         string sMaxExp = maxExperience.ToString();
         string sCurExp = currentExperience.ToString();
 
+        nameTextbox.text = playerName;
         hpTextbox.text = "hp " + sCurHp + "/" + sMaxHp;
         lvlTextbox.text = "lv " + level;
         expTextbox.text = "exp " + sCurExp + "/" + sMaxExp;
@@ -88,6 +89,11 @@ public class PlayerController : MonoBehaviour {
         currentHealth += amount;
     }
 
+    public void FullHeal()
+    {
+        currentHealth = maxHealth;
+    }
+
     public void GiveExp(float amount)
     {
         currentExperience += amount;
@@ -105,29 +111,25 @@ public class PlayerController : MonoBehaviour {
     
     void Load()
     {
-        if (SaveLoad.SaveExists("PlayerMaxHP"))
+        if (SaveLoad.SaveExists("PlayerName") &&
+            SaveLoad.SaveExists("PlayerMaxHP") &&
+            SaveLoad.SaveExists("PlayerCurHP") &&
+            SaveLoad.SaveExists("PlayerLevel") &&
+            SaveLoad.SaveExists("PlayerMaxXP") &&
+            SaveLoad.SaveExists("PlayerCurXP") &&
+            SaveLoad.SaveExists("PlayerPositionX") &&
+            SaveLoad.SaveExists("PlayerPositionY"))
         {
             playerName = SaveLoad.Load<string>("PlayerName");
-        }
-        if (SaveLoad.SaveExists("PlayerMaxHP"))
-        {
             maxHealth = SaveLoad.Load<float>("PlayerMaxHP");
-        }
-        if (SaveLoad.SaveExists("PlayerCurHP"))
-        {
             currentHealth = SaveLoad.Load<float>("PlayerCurHP");
-        }
-        if (SaveLoad.SaveExists("PlayerLevel"))
-        {
             level = SaveLoad.Load<float>("PlayerLevel");
-        }
-        if (SaveLoad.SaveExists("PlayerMaxXP"))
-        {
             maxExperience = SaveLoad.Load<float>("PlayerMaxXP");
-        }
-        if (SaveLoad.SaveExists("PlayerCurXP"))
-        {
             currentExperience = SaveLoad.Load<float>("PlayerCurXP");
+            Vector2 tempVector;
+            tempVector.x = SaveLoad.Load<float>("PlayerPositionX");
+            tempVector.y = SaveLoad.Load<float>("PlayerPositiony");
+            gameObject.transform.position = tempVector;
         }
     }
 }

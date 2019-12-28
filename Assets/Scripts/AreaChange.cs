@@ -1,18 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class AreaChange : MonoBehaviour
 {
-    public static AreaChange instance;
-    public GameObject activeCamera;
-    public GameObject destinatedCamera;
+    public GameObject cameraContainer;
+
+    public CinemachineVirtualCamera[] vCams;
+
+    public CinemachineVirtualCamera destinatedCamera;
     public GameObject locationTeleport;
     private Animator anim;
 
     void Start()
     {
         anim = GameObject.Find("Canvas").GetComponent<Animator>();
+        vCams = cameraContainer.GetComponentsInChildren<CinemachineVirtualCamera>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -27,8 +31,11 @@ public class AreaChange : MonoBehaviour
     {
         anim.SetTrigger("FadeOut");
         yield return new WaitForSeconds(0.5f);
-        activeCamera.SetActive(false);
-        destinatedCamera.SetActive(true);
+        foreach (CinemachineVirtualCamera Cam in vCams)
+        {
+            Cam.m_Priority = 0;
+        }
+        destinatedCamera.m_Priority = 1;
         GameObject.Find("Player").transform.position = locationTeleport.transform.position;
         anim.SetTrigger("FadeIn");
     }
