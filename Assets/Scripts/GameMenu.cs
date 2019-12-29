@@ -30,6 +30,7 @@ public class GameMenu : MonoBehaviour
                 {
                     SavePanel.SetActive(false);
                     interaction.InteractionSwitch();
+                    EventSystem.current.SetSelectedGameObject(SavePanel.transform.Find("ButtonList").transform.Find("Return").gameObject);
                 }
             }
             else
@@ -54,6 +55,7 @@ public class GameMenu : MonoBehaviour
             {
                 SavePanel.SetActive(false);
                 interaction.InteractionSwitch();
+                EventSystem.current.SetSelectedGameObject(SavePanel.transform.Find("ButtonList").transform.Find("Return").gameObject);
             }
             else if (ItemInspect.activeInHierarchy)
             {
@@ -80,6 +82,7 @@ public class GameMenu : MonoBehaviour
                 {
                     SavePanel.SetActive(false);
                     interaction.InteractionSwitch();
+                    EventSystem.current.SetSelectedGameObject(SavePanel.transform.Find("ButtonList").transform.Find("Return").gameObject);
                 }
             }
         }

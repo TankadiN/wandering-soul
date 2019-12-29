@@ -22,6 +22,6 @@ MonoBehaviour:
     itemHealthRecovery: 10
   - itemName: Test Item
     itemType: KeyItem
-    itemImageName: 
+    itemImageName: GlowingRock
     itemDescription: It's just a shiny rock...
     itemHealthRecovery: 0

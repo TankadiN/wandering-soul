@@ -2598,7 +2598,8 @@ MonoBehaviour:
     y: -340
     width: 1114
     height: 859
-  selectedBlocks: []
+  selectedBlocks:
+  - {fileID: 229644388}
   selectedCommands: []
   variables:
   - {fileID: 229644403}
@@ -12838,6 +12839,11 @@ GameObject:
   - component: {fileID: 750547985}
   - component: {fileID: 750547984}
   - component: {fileID: 750547983}
+  - component: {fileID: 750547997}
+  - component: {fileID: 750547996}
+  - component: {fileID: 750547995}
+  - component: {fileID: 750547994}
+  - component: {fileID: 750547993}
   m_Layer: 0
   m_Name: SaveFlow
   m_TagString: Untagged
@@ -12847,7 +12853,7 @@ GameObject:
   m_IsActive: 1
 --- !u!114 &750547983
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -12875,7 +12881,7 @@ MonoBehaviour:
   callMode: 0
 --- !u!114 &750547984
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -12936,8 +12942,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 587
-    y: 161
+    x: 590
+    y: 165
     width: 131
     height: 40
   tint: {r: 0, g: 0.023826122, b: 1, a: 1}
@@ -12976,7 +12982,7 @@ MonoBehaviour:
     floatVal: 0
   stringData:
     stringRef: {fileID: 0}
-    stringVal: Cave - Near Exit
+    stringVal: Test Area - Near Exit
   animatorData:
     animatorRef: {fileID: 0}
     animatorVal: {fileID: 0}
@@ -13069,8 +13075,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 394
-    y: 85
+    x: 411
+    y: 92
     width: 172
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
@@ -13081,6 +13087,7 @@ MonoBehaviour:
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 750547987}
+  - {fileID: 750547993}
   - {fileID: 750547988}
   - {fileID: 750547985}
 --- !u!114 &750547991
@@ -13096,7 +13103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  scrollPos: {x: 0, y: 0}
+  scrollPos: {x: 79, y: -50}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   blockViewHeight: 400
@@ -13107,9 +13114,9 @@ MonoBehaviour:
     y: -340
     width: 1114
     height: 859
-  selectedBlocks: []
-  selectedCommands:
-  - {fileID: 750547983}
+  selectedBlocks:
+  - {fileID: 750547986}
+  selectedCommands: []
   variables:
   - {fileID: 750547989}
   description: 
@@ -13136,6 +13143,111 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &750547993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 750547982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c43743931d28f43f89eced820d907351, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 33
+  indentLevel: 0
+  messageTarget: 0
+  _message:
+    stringRef: {fileID: 0}
+    stringVal: Heal
+  messageOLD: 
+--- !u!114 &750547994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 750547982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 32
+  indentLevel: 0
+  description: 
+  targetObject: {fileID: 482155612}
+  targetComponentAssemblyName: PlayerController, Assembly-CSharp, Version=0.0.0.0,
+    Culture=neutral, PublicKeyToken=null
+  targetComponentFullname: UnityEngine.Component[]
+  targetComponentText: PlayerController
+  targetMethod: FullHeal
+  targetMethodText: 'FullHeal (): Void'
+  methodParameters: []
+  saveReturnValue: 0
+  returnValueVariableKey: 
+  returnValueType: System.Void
+  showInherited: 0
+  callMode: 0
+--- !u!114 &750547995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 750547982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd2f6be51b3d7490ba5633ee095d0391, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 31
+  indentLevel: 0
+  soundClip: {fileID: 8300000, guid: a8a97cb012b24ae43bb858523d50e67a, type: 3}
+  volume: 1
+  waitUntilFinished: 1
+--- !u!114 &750547996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 750547982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d7d417659cd54a6787f70f763950c34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentBlock: {fileID: 750547997}
+  message: Heal
+--- !u!114 &750547997
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 750547982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodeRect:
+    serializedVersion: 2
+    x: 303
+    y: 167
+    width: 120
+    height: 40
+  tint: {r: 1, g: 1, b: 1, a: 1}
+  useCustomTint: 0
+  itemId: 7
+  blockName: HealEffect
+  description: 
+  eventHandler: {fileID: 750547996}
+  commandList:
+  - {fileID: 750547995}
+  - {fileID: 750547994}
 --- !u!1 &752290771
 GameObject:
   m_ObjectHideFlags: 0
@@ -17294,6 +17406,7 @@ MonoBehaviour:
   LvlTextbox: {fileID: 1572622600}
   TimeTextbox: {fileID: 1489930339}
   LocTextbox: {fileID: 1326971501}
+  MainMenu: 0
   SavePanel: {fileID: 1864402997}
   ButtonPanel: {fileID: 524488333}
   LastLocation: 
@@ -19131,8 +19244,9 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks:
-  - {fileID: 1346830913}
-  selectedCommands: []
+  - {fileID: 1346830936}
+  selectedCommands:
+  - {fileID: 1346830934}
   variables:
   - {fileID: 1346830918}
   - {fileID: 1346830917}

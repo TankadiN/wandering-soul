@@ -111,14 +111,20 @@ public class PlayerController : MonoBehaviour {
     
     void Load()
     {
-        if (SaveLoad.SaveExists("PlayerName") &&
+        if (SaveLoad.SaveExists("TimeHours") &&
+            SaveLoad.SaveExists("TimeMinutes") &&
+            SaveLoad.SaveExists("TimeSeconds") &&
+            SaveLoad.SaveExists("PlayerLevel") &&
+            SaveLoad.SaveExists("PlayerName") &&
             SaveLoad.SaveExists("PlayerMaxHP") &&
             SaveLoad.SaveExists("PlayerCurHP") &&
-            SaveLoad.SaveExists("PlayerLevel") &&
             SaveLoad.SaveExists("PlayerMaxXP") &&
             SaveLoad.SaveExists("PlayerCurXP") &&
+            SaveLoad.SaveExists("PlayerLocationName") &&
             SaveLoad.SaveExists("PlayerPositionX") &&
-            SaveLoad.SaveExists("PlayerPositionY"))
+            SaveLoad.SaveExists("PlayerPositionY") &&
+            SaveLoad.SaveExists("CameraPriorities") &&
+            SaveLoad.SaveExists("Inventory"))
         {
             playerName = SaveLoad.Load<string>("PlayerName");
             maxHealth = SaveLoad.Load<float>("PlayerMaxHP");

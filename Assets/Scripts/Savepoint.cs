@@ -89,6 +89,8 @@ public class Savepoint : MonoBehaviour
         TimeTextbox.color = SavedColor;
         LocTextbox.color = SavedColor;
         ButtonPanel.SetActive(false);
+        AudioManager.instance.Play("savedgame");
+        Load();
         yield return new WaitForSeconds(1f);
         GetComponent<GameMenu>().playerSaved = true;
     }
@@ -101,8 +103,6 @@ public class Savepoint : MonoBehaviour
         SaveLoad.Save<string>(LastLocation, "PlayerLocationName");
         SaveLoad.Save<float>(PlayerPositionX, "PlayerPositionX");
         SaveLoad.Save<float>(PlayerPositionY, "PlayerPositionY");
-
-        Load();
     }
 
     void Load()
@@ -112,9 +112,15 @@ public class Savepoint : MonoBehaviour
             SaveLoad.SaveExists("TimeSeconds") &&
             SaveLoad.SaveExists("PlayerLevel") &&
             SaveLoad.SaveExists("PlayerName") &&
+            SaveLoad.SaveExists("PlayerMaxHP") &&
+            SaveLoad.SaveExists("PlayerCurHP") &&
+            SaveLoad.SaveExists("PlayerMaxXP") &&
+            SaveLoad.SaveExists("PlayerCurXP") &&
             SaveLoad.SaveExists("PlayerLocationName") &&
             SaveLoad.SaveExists("PlayerPositionX") &&
-            SaveLoad.SaveExists("PlayerPositionY"))
+            SaveLoad.SaveExists("PlayerPositionY") &&
+            SaveLoad.SaveExists("CameraPriorities") &&
+            SaveLoad.SaveExists("Inventory"))
         {
             Hours = SaveLoad.Load<int>("TimeHours");
             Minutes = SaveLoad.Load<int>("TimeMinutes");
