@@ -190,7 +190,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 100}
   m_SizeDelta: {x: 768.3, y: 317.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &200651583
@@ -581,7 +581,6 @@ GameObject:
   - component: {fileID: 1366269438}
   - component: {fileID: 1366269437}
   - component: {fileID: 1366269435}
-  - component: {fileID: 1366269441}
   - component: {fileID: 1366269442}
   - component: {fileID: 1366269444}
   - component: {fileID: 1366269443}
@@ -674,7 +673,7 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 473
-    y: 76
+    y: 75
     width: 120
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
@@ -685,9 +684,8 @@ MonoBehaviour:
   eventHandler: {fileID: 1366269437}
   commandList:
   - {fileID: 1366269451}
-  - {fileID: 1366269435}
   - {fileID: 1366269442}
-  - {fileID: 1366269441}
+  - {fileID: 1366269435}
   - {fileID: 1366269444}
   - {fileID: 1366269443}
   - {fileID: 1366269445}
@@ -717,8 +715,9 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks:
-  - {fileID: 1366269450}
-  selectedCommands: []
+  - {fileID: 1366269438}
+  selectedCommands:
+  - {fileID: 1366269445}
   variables: []
   description: 
   stepPause: 0
@@ -744,40 +743,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1366269441
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1366269434}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ca31fffe1be42a49b96bbb8b7ff5a50, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 3
-  indentLevel: 0
-  _targetObject:
-    gameObjectRef: {fileID: 0}
-    gameObjectVal: {fileID: 24314752}
-  _duration:
-    floatRef: {fileID: 0}
-    floatVal: 1
-  _toFrom: 0
-  _absAdd: 0
-  easeType: 4
-  loopType: 35
-  repeats: 0
-  stopPreviousTweens: 0
-  waitUntilFinished: 1
-  _toTransform:
-    transformRef: {fileID: 0}
-    transformVal: {fileID: 0}
-  _toPosition:
-    vector3Ref: {fileID: 0}
-    vector3Val: {x: 0, y: 100, z: 0}
-  isLocal: 1
 --- !u!114 &1366269442
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -815,7 +780,7 @@ MonoBehaviour:
     gameObjectVal: {fileID: 1566886395}
   _duration:
     floatRef: {fileID: 0}
-    floatVal: 2
+    floatVal: 3
   _toFrom: 0
   _absAdd: 0
   easeType: 2
@@ -877,7 +842,7 @@ MonoBehaviour:
   indentLevel: 0
   _duration:
     floatRef: {fileID: 0}
-    floatVal: 2.5
+    floatVal: 4
   durationOLD: 0
 --- !u!114 &1366269446
 MonoBehaviour:
@@ -996,7 +961,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 14
   indentLevel: 0
-  musicClip: {fileID: 8300000, guid: bd40caf51a0889c4186f245dd28b8e9b, type: 3}
+  musicClip: {fileID: 8300000, guid: a36dbcf1066c6c64d94226fe34736687, type: 3}
   atTime: 0
   loop: 0
   fadeDuration: 1

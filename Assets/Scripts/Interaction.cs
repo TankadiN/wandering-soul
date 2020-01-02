@@ -65,13 +65,13 @@ public class Interaction : MonoBehaviour
                     mainFlow.SetStringVariable("ItemName", objectName);
                     mainFlow.ExecuteBlock("PickupItem");
                 }
-                if(isSave)
+                if (isSave)
                 {
                     saveFlow.ExecuteBlock(objectName);
                     GameObject.Find("GameManager").GetComponent<Savepoint>().PlayerPositionX = pPosX;
                     GameObject.Find("GameManager").GetComponent<Savepoint>().PlayerPositionY = pPosY;
                 }
-                else
+                if(!isItem && !isSave)
                 {
                     mainFlow.ExecuteBlock(objectName);
                 }
