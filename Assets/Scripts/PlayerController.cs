@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour {
     public TMP_Text expTextbox;
     [Header("Player Variables")]
     public string playerName;
+    public int menuArtNumber;
     [Header("Health Variables")]
     public float maxHealth;
     public float currentHealth;
@@ -30,7 +31,17 @@ public class PlayerController : MonoBehaviour {
     {
         currentHealth = maxHealth;
         soulPlayer.color = new Color(outlinePlayer.color.r, outlinePlayer.color.g, outlinePlayer.color.b, 0);
-        //AudioManager.instance.Play("waterfall");
+        if(GlobalVariables.instance)
+        {
+            if (string.IsNullOrEmpty(GlobalVariables.instance.playerName))
+            {
+
+            }
+            else
+            {
+                playerName = GlobalVariables.instance.playerName;
+            }
+        }
         GameEvents.SaveInitiated += Save;
         Load();
     }
@@ -99,6 +110,11 @@ public class PlayerController : MonoBehaviour {
         currentExperience += amount;
     }
 
+    public void SetNumber(int newNumber)
+    {
+        menuArtNumber = newNumber;
+    }
+
     void Save()
     {
         SaveLoad.Save<string>(playerName, "PlayerName");
@@ -107,24 +123,12 @@ public class PlayerController : MonoBehaviour {
         SaveLoad.Save<float>(level, "PlayerLevel");
         SaveLoad.Save<float>(maxExperience, "PlayerMaxXP");
         SaveLoad.Save<float>(currentExperience, "PlayerCurXP");
+        SaveLoad.Save<int>(menuArtNumber, "MenuVariable");
     }
     
     void Load()
     {
-        if (SaveLoad.SaveExists("TimeHours") &&
-            SaveLoad.SaveExists("TimeMinutes") &&
-            SaveLoad.SaveExists("TimeSeconds") &&
-            SaveLoad.SaveExists("PlayerLevel") &&
-            SaveLoad.SaveExists("PlayerName") &&
-            SaveLoad.SaveExists("PlayerMaxHP") &&
-            SaveLoad.SaveExists("PlayerCurHP") &&
-            SaveLoad.SaveExists("PlayerMaxXP") &&
-            SaveLoad.SaveExists("PlayerCurXP") &&
-            SaveLoad.SaveExists("PlayerLocationName") &&
-            SaveLoad.SaveExists("PlayerPositionX") &&
-            SaveLoad.SaveExists("PlayerPositionY") &&
-            SaveLoad.SaveExists("CameraPriorities") &&
-            SaveLoad.SaveExists("Inventory"))
+        if (SaveChecker.CheckSaveFile())
         {
             playerName = SaveLoad.Load<string>("PlayerName");
             maxHealth = SaveLoad.Load<float>("PlayerMaxHP");

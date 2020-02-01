@@ -63,20 +63,7 @@ public class Inventory : MonoBehaviour
 
     void Load()
     {
-        if (SaveLoad.SaveExists("TimeHours") &&
-            SaveLoad.SaveExists("TimeMinutes") &&
-            SaveLoad.SaveExists("TimeSeconds") &&
-            SaveLoad.SaveExists("PlayerLevel") &&
-            SaveLoad.SaveExists("PlayerName") &&
-            SaveLoad.SaveExists("PlayerMaxHP") &&
-            SaveLoad.SaveExists("PlayerCurHP") &&
-            SaveLoad.SaveExists("PlayerMaxXP") &&
-            SaveLoad.SaveExists("PlayerCurXP") &&
-            SaveLoad.SaveExists("PlayerLocationName") &&
-            SaveLoad.SaveExists("PlayerPositionX") &&
-            SaveLoad.SaveExists("PlayerPositionY") &&
-            SaveLoad.SaveExists("CameraPriorities") &&
-            SaveLoad.SaveExists("Inventory"))
+        if (SaveChecker.CheckSaveFile())
         {
             AddItems(SaveLoad.Load<List<Item>>("Inventory"));
         }

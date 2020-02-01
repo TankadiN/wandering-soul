@@ -632,7 +632,7 @@ MonoBehaviour:
     floatVal: 1
 --- !u!114 &1366269436
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -717,7 +717,7 @@ MonoBehaviour:
   selectedBlocks:
   - {fileID: 1366269438}
   selectedCommands:
-  - {fileID: 1366269445}
+  - {fileID: 1366269443}
   variables: []
   description: 
   stepPause: 0
@@ -846,7 +846,7 @@ MonoBehaviour:
   durationOLD: 0
 --- !u!114 &1366269446
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -867,7 +867,7 @@ MonoBehaviour:
   callMode: 0
 --- !u!114 &1366269447
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -886,7 +886,7 @@ MonoBehaviour:
   sceneNameOLD: 
 --- !u!114 &1366269448
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -905,7 +905,7 @@ MonoBehaviour:
   fadeTexture: {fileID: 0}
 --- !u!114 &1366269449
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -920,7 +920,7 @@ MonoBehaviour:
   keyCode: 122
 --- !u!114 &1366269450
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -932,8 +932,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 641
-    y: 85
+    x: 643
+    y: 108
     width: 120
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
@@ -949,7 +949,7 @@ MonoBehaviour:
   - {fileID: 1366269447}
 --- !u!114 &1366269451
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -967,7 +967,7 @@ MonoBehaviour:
   fadeDuration: 1
 --- !u!114 &1366269452
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}

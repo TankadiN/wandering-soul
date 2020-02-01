@@ -8,30 +8,21 @@ using UnityEngine.EventSystems;
 public class MainMenu : MonoBehaviour
 {
     public GameObject buttonList;
-
     public GameObject saveFile;
+
+    [Header("Buttons")]
     public GameObject newGameButton;
     public GameObject continueButton;
     public GameObject deleteSaveButton;
+
+    [Header("Panels")]
+    public GameObject deleteSavePanel;
 
     private void Start()
     {
         EventSystem.current.SetSelectedGameObject(buttonList.GetComponentInChildren<Selectable>().gameObject);
 
-        if (SaveLoad.SaveExists("TimeHours") &&
-            SaveLoad.SaveExists("TimeMinutes") &&
-            SaveLoad.SaveExists("TimeSeconds") &&
-            SaveLoad.SaveExists("PlayerLevel") &&
-            SaveLoad.SaveExists("PlayerName") &&
-            SaveLoad.SaveExists("PlayerMaxHP") &&
-            SaveLoad.SaveExists("PlayerCurHP") &&
-            SaveLoad.SaveExists("PlayerMaxXP") &&
-            SaveLoad.SaveExists("PlayerCurXP") &&
-            SaveLoad.SaveExists("PlayerLocationName") &&
-            SaveLoad.SaveExists("PlayerPositionX") &&
-            SaveLoad.SaveExists("PlayerPositionY") &&
-            SaveLoad.SaveExists("CameraPriorities") &&
-            SaveLoad.SaveExists("Inventory"))
+        if (SaveChecker.CheckSaveFile())
         {
             newGameButton.SetActive(false);
         }
@@ -53,9 +44,31 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene("TestingPlace");
     }
 
+    public void DeletePopup()
+    {
+        if (deleteSavePanel.activeInHierarchy)
+        {
+            deleteSavePanel.SetActive(false);
+            EventSystem.current.SetSelectedGameObject(buttonList.GetComponentInChildren<Button>().gameObject);
+        }
+        else
+        {
+            deleteSavePanel.SetActive(true);
+            EventSystem.current.SetSelectedGameObject(deleteSavePanel.GetComponentInChildren<Button>().gameObject);
+        }
+    }
+
     public void DeleteSave()
     {
         SaveLoad.SeriouslyDeleteAllSaveFiles();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void Exit()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.ExitPlaymode();
+#endif
+        Application.Quit();
     }
 }
