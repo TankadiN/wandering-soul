@@ -26,11 +26,11 @@ public class DisplayInventory : MonoBehaviour
         {
             if (ItemSlots[i].GetComponentInChildren<TMP_Text>().text == "[NO ITEM]")
             {
-                ItemSlots[i].interactable = false;
+                ItemSlots[i].GetComponentInChildren<TMP_Text>().color = ItemSlots[i].colors.pressedColor;
             }
             else
             {
-                ItemSlots[i].interactable = true;
+                ItemSlots[i].GetComponentInChildren<TMP_Text>().color = ItemSlots[i].colors.highlightedColor;
             }
         }
     }
@@ -45,11 +45,11 @@ public class DisplayInventory : MonoBehaviour
         {
             if (ItemSlots[i].GetComponentInChildren<TMP_Text>().text == "[NO ITEM]")
             {
-                ItemSlots[i].interactable = false;
+                ItemSlots[i].GetComponentInChildren<TMP_Text>().color = ItemSlots[i].colors.pressedColor;
             }
             else
             {
-                ItemSlots[i].interactable = true;
+                ItemSlots[i].GetComponentInChildren<TMP_Text>().color = ItemSlots[i].colors.highlightedColor;
             }
         }
     }
@@ -64,17 +64,24 @@ public class DisplayInventory : MonoBehaviour
 
     public void GetItemInfo(int ID)
     {
-        saveID = ID;
+        if (ID >= inventory.Items.Count)
+        {
+            Debug.Log("There is no item on this slot");
+        }
+        else
+        {
+            saveID = ID;
 #if UNITY_EDITOR
-        loadedSpr = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Resources/Images/" + inventory.Items[ID].itemImageName + ".png");
+            loadedSpr = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Resources/Images/" + inventory.Items[ID].itemImageName + ".png");
 #else
-        loadedSpr = Resources.Load<Sprite>("Images/" + inventory.Items[ID].itemImageName);
+            loadedSpr = Resources.Load<Sprite>("Images/" + inventory.Items[ID].itemImageName);
 #endif
-        itemImage.sprite = loadedSpr;
-        itemName.text = inventory.Items[ID].itemName;
-        itemDesc.text = inventory.Items[ID].itemDescription;
-        GetComponent<ItemInspect>().ID = saveID;
-        GetComponent<ItemInspect>().SendInfoToFlow();
-        GetComponent<GameMenu>().ItemInspectOpen();
+            itemImage.sprite = loadedSpr;
+            itemName.text = inventory.Items[ID].itemName;
+            itemDesc.text = inventory.Items[ID].itemDescription;
+            GetComponent<ItemInspect>().ID = saveID;
+            GetComponent<ItemInspect>().SendInfoToFlow();
+            GetComponent<GameMenu>().ItemInspectOpen();
+        }
     }
 }

@@ -7,6 +7,7 @@ public class Interaction : MonoBehaviour
 {
     public bool isInteracting;
     public string objectName;
+    public bool isNothing;
     public bool isItem;
     public bool isSave;
 
@@ -26,6 +27,8 @@ public class Interaction : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        isNothing = false;
+
         if (collision.tag == "NPC")
         {
             Debug.Log(collision.gameObject.name);
@@ -50,13 +53,14 @@ public class Interaction : MonoBehaviour
         objectName = null;
         isItem = false;
         isSave = false;
+        isNothing = true;
     }
 
     private void Update()
     {
         if (Input.GetButtonDown("Submit"))
         {
-            if (!isInteracting)
+            if (!isInteracting && !isNothing)
             {
                 Debug.Log(gameObject.name + " interacted with " + objectName);
                 isInteracting = true;

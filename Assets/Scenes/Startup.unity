@@ -96,6 +96,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
+    m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -153,6 +154,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -453,6 +455,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0.023826122, b: 1, a: 0}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -547,6 +550,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -657,6 +661,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentBlock: {fileID: 1366269438}
+  suppressBlockAutoSelect: 0
   waitForFrames: 1
 --- !u!114 &1366269438
 MonoBehaviour:
@@ -672,7 +677,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 473
+    x: 474
     y: 75
     width: 120
     height: 40
@@ -690,6 +695,7 @@ MonoBehaviour:
   - {fileID: 1366269443}
   - {fileID: 1366269445}
   - {fileID: 1366269446}
+  suppressAllAutoSelections: 0
 --- !u!114 &1366269439
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -714,10 +720,8 @@ MonoBehaviour:
     y: -340
     width: 1114
     height: 859
-  selectedBlocks:
-  - {fileID: 1366269438}
-  selectedCommands:
-  - {fileID: 1366269443}
+  selectedBlocks: []
+  selectedCommands: []
   variables: []
   description: 
   stepPause: 0
@@ -916,6 +920,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentBlock: {fileID: 1366269450}
+  suppressBlockAutoSelect: 0
   keyPressType: 0
   keyCode: 122
 --- !u!114 &1366269450
@@ -947,6 +952,7 @@ MonoBehaviour:
   - {fileID: 1366269448}
   - {fileID: 1366269436}
   - {fileID: 1366269447}
+  suppressAllAutoSelections: 0
 --- !u!114 &1366269451
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1097,6 +1103,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
