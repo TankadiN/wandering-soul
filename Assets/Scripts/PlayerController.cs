@@ -7,12 +7,12 @@ using TMPro;
 public class PlayerController : MonoBehaviour {
 
     [Header("Game Objects")]
-    public Slider bar;
+    public Slider[] bar;
     public Image soul;
-    public TMP_Text nameTextbox;
-    public TMP_Text hpTextbox;
-    public TMP_Text lvlTextbox;
-    public TMP_Text expTextbox;
+    public TMP_Text[] nameTextbox;
+    public TMP_Text[] hpTextbox;
+    public TMP_Text[] lvlTextbox;
+    public TMP_Text[] expTextbox;
     [Header("Player Variables")]
     public string playerName;
     public int menuArtNumber;
@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour {
     void Start ()
     {
         currentHealth = maxHealth;
-        soulPlayer.color = new Color(outlinePlayer.color.r, outlinePlayer.color.g, outlinePlayer.color.b, 0);
+        soulPlayer.color = new Color(outlinePlayer.color.r, outlinePlayer.color.g, outlinePlayer.color.b, 255);
         if(GlobalVariables.instance)
         {
             if (string.IsNullOrEmpty(GlobalVariables.instance.playerName))
@@ -67,20 +67,24 @@ public class PlayerController : MonoBehaviour {
         string sMaxExp = maxExperience.ToString();
         string sCurExp = currentExperience.ToString();
 
-        nameTextbox.text = playerName;
-        hpTextbox.text = "hp " + sCurHp + "/" + sMaxHp;
-        lvlTextbox.text = "lv " + level;
-        expTextbox.text = "exp " + sCurExp + "/" + sMaxExp;
+        for(int i = 0; i < bar.Length; i++)
+        {
+            nameTextbox[i].text = playerName;
+            hpTextbox[i].text = "hp " + sCurHp + "/" + sMaxHp;
+            lvlTextbox[i].text = "lv " + level;
+            expTextbox[i].text = "exp " + sCurExp + "/" + sMaxExp;
 
-        bar.maxValue = maxHealth;
-        bar.value = currentHealth;
+            bar[i].maxValue = maxHealth;
+            bar[i].value = currentHealth;
+        }
+
         soul.fillAmount = currentExperience / maxExperience;
     }
 
     public void LevelUp()
     {
         AudioManager.instance.Play("levelup");
-        bar.GetComponent<RectTransform>().sizeDelta += new Vector2(25f, 0f);
+        //bar.GetComponent<RectTransform>().sizeDelta += new Vector2(25f, 0f);
         level++;
         maxHealth += 4;
         currentHealth = maxHealth;
@@ -93,6 +97,15 @@ public class PlayerController : MonoBehaviour {
     public void Damage(float amount)
     {
         currentHealth -= amount;
+        if(currentHealth <= 0)
+        {
+            Death();
+        }
+    }
+
+    public void Death()
+    {
+        Debug.Log("Player died");
     }
 
     public void Heal(float amount)
@@ -110,7 +123,7 @@ public class PlayerController : MonoBehaviour {
         currentExperience += amount;
     }
 
-    public void SetNumber(int newNumber)
+    public void SetMenuArtNumber(int newNumber)
     {
         menuArtNumber = newNumber;
     }

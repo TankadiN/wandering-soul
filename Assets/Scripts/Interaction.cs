@@ -7,18 +7,24 @@ public class Interaction : MonoBehaviour
 {
     public bool isInteracting;
     public string objectName;
-    public bool isNothing;
-    public bool isItem;
-    public bool isSave;
+    public ObjectType type;
 
     [SerializeField]
-    private Flowchart mainFlow;
+    private Flowchart mainFlow = null;
     [SerializeField]
-    private Flowchart saveFlow;
+    private Flowchart saveFlow = null;
     private PlayerMovement pMov;
 
     private float pPosX;
     private float pPosY;
+
+    public enum ObjectType
+    {
+        Nothing,
+        NPC,
+        Item,
+        Save
+    }
 
     private void Start()
     {
@@ -27,55 +33,53 @@ public class Interaction : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        isNothing = false;
+        type = ObjectType.Nothing;
 
         if (collision.tag == "NPC")
         {
             Debug.Log(collision.gameObject.name);
             objectName = collision.gameObject.name;
+            type = ObjectType.NPC;
         }
         if (collision.tag == "Item")
         {
             objectName = collision.gameObject.name;
-            isItem = true;
+            type = ObjectType.Item;
         }
         if (collision.tag == "Savepoint")
         {
             objectName = collision.gameObject.name;
             pPosX = collision.transform.GetChild(0).transform.position.x;
             pPosY = collision.transform.GetChild(0).transform.position.y;
-            isSave = true;
+            type = ObjectType.Save;
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         objectName = null;
-        isItem = false;
-        isSave = false;
-        isNothing = true;
+        type = ObjectType.Nothing;
     }
 
     private void Update()
     {
         if (Input.GetButtonDown("Submit"))
         {
-            if (!isInteracting && !isNothing)
+            if (!isInteracting && type != ObjectType.Nothing)
             {
                 Debug.Log(gameObject.name + " interacted with " + objectName);
-                isInteracting = true;
-                if (isItem)
+                if (type == ObjectType.Item)
                 {
                     mainFlow.SetStringVariable("ItemName", objectName);
                     mainFlow.ExecuteBlock("PickupItem");
                 }
-                if (isSave)
+                if (type == ObjectType.Save)
                 {
                     saveFlow.ExecuteBlock(objectName);
                     GameObject.Find("GameManager").GetComponent<Savepoint>().PlayerPositionX = pPosX;
                     GameObject.Find("GameManager").GetComponent<Savepoint>().PlayerPositionY = pPosY;
                 }
-                if(!isItem && !isSave)
+                if(type == ObjectType.NPC)
                 {
                     mainFlow.ExecuteBlock(objectName);
                 }
@@ -94,6 +98,8 @@ public class Interaction : MonoBehaviour
 
     public void InteractionSwitch()
     {
+        pMov.rb.velocity = Vector2.zero;
+        pMov.movement = Vector2.zero;
         if (isInteracting)
         {
             isInteracting = false;

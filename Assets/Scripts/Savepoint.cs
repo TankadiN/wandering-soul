@@ -29,7 +29,7 @@ public class Savepoint : MonoBehaviour
     public Color SavedColor;
 
     [SerializeField]
-    private Flowchart saveFlow;
+    private Flowchart saveFlow = null;
 
     private void Start()
     {

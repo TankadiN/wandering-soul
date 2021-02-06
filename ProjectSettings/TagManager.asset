@@ -8,6 +8,7 @@ TagManager:
   - NPC
   - Item
   - Savepoint
+  - Enemy
   layers:
   - Default
   - TransparentFX

@@ -9,9 +9,9 @@ public class Inventory : MonoBehaviour
     public bool isFull;
     public List<Item> Items;
     [SerializeField]
-    private ItemDatabase database;
+    private ItemDatabase database = null;
     [SerializeField]
-    private Flowchart flow;
+    private Flowchart flow = null;
 
     private void Start()
     {

@@ -18,6 +18,7 @@ public class SaveChecker : MonoBehaviour
             SaveLoad.SaveExists("PlayerLocationName") &&
             SaveLoad.SaveExists("PlayerPositionX") &&
             SaveLoad.SaveExists("PlayerPositionY") &&
+            SaveLoad.SaveExists("MenuVariable") &&
             SaveLoad.SaveExists("CameraPriorities") &&
             SaveLoad.SaveExists("Inventory"))
         {
