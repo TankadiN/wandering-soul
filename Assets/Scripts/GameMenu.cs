@@ -70,7 +70,7 @@ public class GameMenu : MonoBehaviour
             else if (GamePanel.activeInHierarchy)
             {
                 GamePanel.SetActive(false);
-                EventSystem.current.SetSelectedGameObject(GamePanel.transform.Find("MainList").transform.Find("Status").gameObject);
+                EventSystem.current.SetSelectedGameObject(null);
                 interaction.InteractionSwitch();
             }
         }

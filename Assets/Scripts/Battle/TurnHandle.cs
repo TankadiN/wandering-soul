@@ -22,6 +22,7 @@ public class TurnHandle : MonoBehaviour
     public GameObject box;
 
     public List<EnemyProfile> enemiesInBattle;
+    public List<GameObject> enemiesAlive;
     private bool enemyActed;
     private GameObject[] enemyAtks;
 
@@ -31,7 +32,7 @@ public class TurnHandle : MonoBehaviour
     
     void Start()
     {
-        state = BattleState.StandBy;
+        state = BattleState.Start;
         enemyActed = false;
     }
 
@@ -139,7 +140,7 @@ public class TurnHandle : MonoBehaviour
     void playerFinishTurn()
     {
         playerUi.SetActive(false);
-
+        GameObject.Find("ResetSelection").GetComponent<Selectable>().Select();
         state = BattleState.EnemyTurn;
     }
 

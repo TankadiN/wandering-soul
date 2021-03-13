@@ -1914,8 +1914,6 @@ GameObject:
   - component: {fileID: 194264420}
   - component: {fileID: 194264419}
   - component: {fileID: 194264426}
-  - component: {fileID: 194264428}
-  - component: {fileID: 194264421}
   - component: {fileID: 194264432}
   - component: {fileID: 194264431}
   - component: {fileID: 194264430}
@@ -2129,21 +2127,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  scrollPos: {x: -110, y: 15}
+  scrollPos: {x: 139.0453, y: 33.636353}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   blockViewHeight: 566
-  zoom: 1
+  zoom: 0.8800001
   scrollViewRect:
     serializedVersion: 2
     x: -343
     y: -340
     width: 1114
     height: 859
-  selectedBlocks:
-  - {fileID: 194264448}
-  selectedCommands:
-  - {fileID: 194264468}
+  selectedBlocks: []
+  selectedCommands: []
   variables:
   - {fileID: 194264446}
   description: 
@@ -2349,7 +2345,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: -28
     y: 102
-    width: 148
+    width: 149.99998
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -2766,51 +2762,6 @@ MonoBehaviour:
   targetAlpha:
     floatRef: {fileID: 0}
     floatVal: 0
---- !u!114 &194264421
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 194264391}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 38
-  indentLevel: 0
-  description: 
-  targetObject: {fileID: 1917685962}
-  targetComponentAssemblyName: TMPro.TextMeshProUGUI, Unity.TextMeshPro, Version=0.0.0.0,
-    Culture=neutral, PublicKeyToken=null
-  targetComponentFullname: UnityEngine.Component[]
-  targetComponentText: TextMeshProUGUI
-  targetMethod: SetText
-  targetMethodText: 'SetText (String): Void'
-  methodParameters:
-  - objValue:
-      typeAssemblyname: System.String, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      typeFullname: System.String
-      intValue: 0
-      boolValue: 0
-      floatValue: 0
-      stringValue: Ye.
-      colorValue: {r: 0, g: 0, b: 0, a: 0}
-      gameObjectValue: {fileID: 0}
-      materialValue: {fileID: 0}
-      objectValue: {fileID: 0}
-      spriteValue: {fileID: 0}
-      textureValue: {fileID: 0}
-      vector2Value: {x: 0, y: 0}
-      vector3Value: {x: 0, y: 0, z: 0}
-    variableKey: 
-  saveReturnValue: 0
-  returnValueVariableKey: 
-  returnValueType: System.Void
-  showInherited: 1
-  callMode: 0
 --- !u!114 &194264422
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2899,7 +2850,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 561
     y: 138
-    width: 156
+    width: 156.81818
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -2988,33 +2939,6 @@ MonoBehaviour:
   returnValueType: System.Void
   showInherited: 1
   callMode: 0
---- !u!114 &194264428
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 194264391}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nodeRect:
-    serializedVersion: 2
-    x: -19
-    y: 10
-    width: 121
-    height: 40
-  tint: {r: 0, g: 0, b: 0, a: 1}
-  useCustomTint: 1
-  itemId: 37
-  blockName: Crappy Stuff
-  description: 
-  eventHandler: {fileID: 0}
-  commandList:
-  - {fileID: 194264421}
-  suppressAllAutoSelections: 0
 --- !u!114 &194264429
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3121,7 +3045,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 767
     y: 75
-    width: 155
+    width: 156.81818
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -3447,7 +3371,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 751
     y: 133
-    width: 192
+    width: 194.31816
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -3626,7 +3550,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 1017
     y: 78
-    width: 155
+    width: 154.54544
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -4332,7 +4256,7 @@ MonoBehaviour:
     vector3Val: {x: 0, y: 0, z: 0}
 --- !u!114 &194264468
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -4350,7 +4274,7 @@ MonoBehaviour:
   targetLabelOLD: {fileID: 0}
 --- !u!114 &194264469
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -4396,7 +4320,7 @@ MonoBehaviour:
   callMode: 0
 --- !u!114 &194264470
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -4411,7 +4335,7 @@ MonoBehaviour:
   key: Confirm
 --- !u!114 &194264471
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}

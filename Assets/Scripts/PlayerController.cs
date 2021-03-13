@@ -7,12 +7,12 @@ using TMPro;
 public class PlayerController : MonoBehaviour {
 
     [Header("Game Objects")]
-    public Slider[] bar;
-    public Image soul;
+    public Image[] bar;
+    //public Image soul;
     public TMP_Text[] nameTextbox;
     public TMP_Text[] hpTextbox;
     public TMP_Text[] lvlTextbox;
-    public TMP_Text[] expTextbox;
+    //public TMP_Text[] expTextbox;
     [Header("Player Variables")]
     public string playerName;
     public int menuArtNumber;
@@ -72,13 +72,12 @@ public class PlayerController : MonoBehaviour {
             nameTextbox[i].text = playerName;
             hpTextbox[i].text = "hp " + sCurHp + "/" + sMaxHp;
             lvlTextbox[i].text = "lv " + level;
-            expTextbox[i].text = "exp " + sCurExp + "/" + sMaxExp;
+            //expTextbox[i].text = "exp " + sCurExp + "/" + sMaxExp;
 
-            bar[i].maxValue = maxHealth;
-            bar[i].value = currentHealth;
+            bar[i].fillAmount = currentHealth / maxHealth;
         }
 
-        soul.fillAmount = currentExperience / maxExperience;
+        //soul.fillAmount = currentExperience / maxExperience;
     }
 
     public void LevelUp()

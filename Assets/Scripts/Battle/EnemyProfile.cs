@@ -10,4 +10,6 @@ public class EnemyProfile : ScriptableObject
     public Sprite enemyVisual;
 
     public GameObject[] enemyAttacks;
+
+    public GameObject flowchart;
 }
