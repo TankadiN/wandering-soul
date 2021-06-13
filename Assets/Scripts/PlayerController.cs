@@ -2,23 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Fungus;
 using TMPro;
 
 public class PlayerController : MonoBehaviour {
 
     [Header("Game Objects")]
-    public Image[] bar;
-    //public Image soul;
-    public TMP_Text[] nameTextbox;
-    public TMP_Text[] hpTextbox;
-    public TMP_Text[] lvlTextbox;
-    //public TMP_Text[] expTextbox;
+    public List<Image> bar;
+    public List<TMP_Text> nameTextbox;
+    public List<TMP_Text> hpTextbox;
+    public List<TMP_Text> lvlTextbox;
+    [Header("GameOver Objects")]
+    public Flowchart mainFlow;
+    public List<GameObject> playerObjects;
     [Header("Player Variables")]
     public string playerName;
     public int menuArtNumber;
     [Header("Health Variables")]
     public float maxHealth;
     public float currentHealth;
+    public float invTime;
     [Header("Level Variables")]
     public float level;
     public float maxExperience;
@@ -26,6 +29,8 @@ public class PlayerController : MonoBehaviour {
     [Header("Color Control")]
     public SpriteRenderer outlinePlayer;
     public SpriteRenderer soulPlayer;
+    [Header("Color Control Soul")]
+    public List<SpriteRenderer> soulHeart;
 
     void Start ()
     {
@@ -48,6 +53,23 @@ public class PlayerController : MonoBehaviour {
 	
 	void Update ()
     {
+        if(invTime > 0)
+        {
+            invTime -= Time.deltaTime;
+            foreach (SpriteRenderer spr in soulHeart)
+            {
+                spr.color = new Color(spr.color.r, spr.color.g, spr.color.b, 0.5f);
+            }
+        }
+
+        foreach(SpriteRenderer spr in soulHeart)
+        {
+            if (invTime < 0)
+            {
+                spr.color = new Color(spr.color.r, spr.color.g, spr.color.b, 1);
+            }
+        }
+
         if (currentExperience >= maxExperience)
         {
             LevelUp();
@@ -56,10 +78,6 @@ public class PlayerController : MonoBehaviour {
         {
             currentHealth = maxHealth;
         }
-        if(currentHealth <= 0)
-        {
-            
-        }
         //Display Logic
         string sMaxHp = maxHealth.ToString();
         string sCurHp = currentHealth.ToString();
@@ -67,17 +85,23 @@ public class PlayerController : MonoBehaviour {
         string sMaxExp = maxExperience.ToString();
         string sCurExp = currentExperience.ToString();
 
-        for(int i = 0; i < bar.Length; i++)
+        foreach(Image i in bar)
         {
-            nameTextbox[i].text = playerName;
-            hpTextbox[i].text = "hp " + sCurHp + "/" + sMaxHp;
-            lvlTextbox[i].text = "lv " + level;
-            //expTextbox[i].text = "exp " + sCurExp + "/" + sMaxExp;
-
-            bar[i].fillAmount = currentHealth / maxHealth;
+            i.fillAmount = currentHealth / maxHealth;
         }
-
-        //soul.fillAmount = currentExperience / maxExperience;
+        foreach (TMP_Text t in nameTextbox)
+        {
+            t.text = playerName;
+        }
+        foreach (TMP_Text t in hpTextbox)
+        {
+            t.text = sCurHp + "/" + sMaxHp;
+        }
+        foreach (TMP_Text t in lvlTextbox)
+        {
+            t.text = "lv " + level;
+        }
+        //expTextbox[i].text = "exp " + sCurExp + "/" + sMaxExp;
     }
 
     public void LevelUp()
@@ -95,16 +119,28 @@ public class PlayerController : MonoBehaviour {
 
     public void Damage(float amount)
     {
-        currentHealth -= amount;
-        if(currentHealth <= 0)
+        if(invTime <= 0)
         {
-            Death();
+            AudioManager.instance.Play("soul_hurt");
+            currentHealth -= amount;
+            if (currentHealth <= 0)
+            {
+                Death();
+            }
+            invTime = 3;
         }
     }
 
     public void Death()
     {
-        Debug.Log("Player died");
+        foreach(GameObject o in playerObjects)
+        {
+            if(o.activeInHierarchy)
+            {
+                o.SetActive(false);
+            }
+        }
+        mainFlow.ExecuteBlock("GameOver");
     }
 
     public void Heal(float amount)

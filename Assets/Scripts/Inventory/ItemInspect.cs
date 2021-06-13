@@ -19,6 +19,21 @@ public class ItemInspect : MonoBehaviour
         }
     }
 
+    public void UseBattleItem()
+    {
+        if(checkUse())
+        {
+            Debug.Log("You can't use air !");
+        }
+        else
+        {
+            if (flow.HasBlock("UseItemBattle"))
+            {
+                flow.ExecuteBlock("UseItemBattle");
+            }
+        }
+    }
+
     public void DropItem()
     {
         if (flow.HasBlock("DropItem"))
@@ -30,8 +45,29 @@ public class ItemInspect : MonoBehaviour
 
     public void SendInfoToFlow()
     {
-        flow.SetStringVariable("ItemName", inventory.Items[ID].itemName);
-        flow.SetStringVariable("ItemType", inventory.Items[ID].itemType);
-        flow.SetFloatVariable("HpValue", inventory.Items[ID].itemHealthRecovery);
+        if (ID >= inventory.Items.Count)
+        {
+            flow.SetStringVariable("ItemName", null);
+            flow.SetStringVariable("ItemType", null);
+            flow.SetFloatVariable("HpValue", 0);
+        }
+        else
+        {
+            flow.SetStringVariable("ItemName", inventory.Items[ID].itemName);
+            flow.SetStringVariable("ItemType", inventory.Items[ID].itemType);
+            flow.SetFloatVariable("HpValue", inventory.Items[ID].itemHealthRecovery);
+        }
+    }
+
+    public bool checkUse()
+    {
+        if(ID >= inventory.Items.Count)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }
