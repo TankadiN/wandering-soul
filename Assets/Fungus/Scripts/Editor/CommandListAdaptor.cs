@@ -1,4 +1,4 @@
-// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
@@ -10,6 +10,12 @@ namespace Fungus.EditorUtils
 {
     public class CommandListAdaptor
     {
+        /// <summary>
+        /// If true, scrolls to the currently selected command in the inspector when the editor is redrawn. A
+        /// Automatically resets to false.
+        /// </summary>
+        public static bool ScrollToCommandOnDraw = false;
+
         public void DrawCommandList()
         {
             if (summaryStyle == null)
@@ -24,8 +30,9 @@ namespace Fungus.EditorUtils
 
             if (commandLabelStyle == null)
             {
-                commandLabelStyle = new GUIStyle(GUI.skin.box);
+                commandLabelStyle = new GUIStyle(GUI.skin.label);
                 commandLabelStyle.normal.background = FungusEditorResources.CommandBackground;
+                commandLabelStyle.normal.textColor = Color.black;
                 int borderSize = 5;
                 commandLabelStyle.border.top = borderSize;
                 commandLabelStyle.border.bottom = borderSize;
@@ -158,6 +165,11 @@ namespace Fungus.EditorUtils
                 if (selectedCommand == command)
                 {
                     commandIsSelected = true;
+                    if (ScrollToCommandOnDraw)
+                    {
+                        GUI.ScrollTo(position);
+                        ScrollToCommandOnDraw = false;
+                    }
                     break;
                 }
             }

@@ -1,4 +1,4 @@
-﻿// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+﻿// This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 #if UNITY_5_3_OR_NEWER
@@ -14,6 +14,9 @@ namespace Fungus
     /// </summary>
     public class NarrativeLogMenu : MonoBehaviour 
     {
+        [Tooltip("Contains the overall aesthetic of each entry.")]
+        [SerializeField] protected NarrativeLogEntryDisplay entryDisplayPrefab;
+
         [Tooltip("Show the Narrative Log Menu")]
         [SerializeField] protected bool showLog = true;
 
@@ -22,6 +25,9 @@ namespace Fungus
 
         [Tooltip("A scrollable text field used for displaying conversation history.")]
         [SerializeField] protected ScrollRect narrativeLogView;
+
+        [Tooltip("Limit characters to be shown in Narrative Log")]
+        [SerializeField] protected int maxCharacters = 10000;
 
         protected TextAdapter narLogViewtextAdapter = new TextAdapter();
         
@@ -72,7 +78,6 @@ namespace Fungus
 
             //Clear up the lorem ipsum
             UpdateNarrativeLogText();
-
         }
 
         protected virtual void OnEnable()
@@ -93,7 +98,7 @@ namespace Fungus
             NarrativeLog.OnNarrativeAdded -= OnNarrativeAdded;
         }
 
-        protected virtual void OnNarrativeAdded()
+        protected virtual void OnNarrativeAdded(NarrativeLogEntry data)
         {
             UpdateNarrativeLogText();
         }
@@ -130,8 +135,14 @@ namespace Fungus
         {
             if (narrativeLogView.enabled)
             {
-                narLogViewtextAdapter.Text = FungusManager.Instance.NarrativeLog.GetPrettyHistory();
-                
+                var prettyHistory = FungusManager.Instance.NarrativeLog.GetPrettyHistory();
+
+                if (prettyHistory.Length > maxCharacters)
+                {
+                    prettyHistory = "... " + prettyHistory.Substring(prettyHistory.Length - maxCharacters, maxCharacters);
+                }
+                narLogViewtextAdapter.Text = prettyHistory;
+
                 Canvas.ForceUpdateCanvases();
                 narrativeLogView.verticalNormalizedPosition = 0f;
                 Canvas.ForceUpdateCanvases();

@@ -1,3 +1,6 @@
+// This code is part of the Fungus library (https://github.com/snozbot/fungus)
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
+
 using UnityEditor;
 using UnityEngine;
 using System;
@@ -173,8 +176,12 @@ namespace Fungus.EditorUtils
             // Because this is an async call, we need to force prefab instances to record changes
             PrefabUtility.RecordPrefabInstancePropertyModifications(block);
 
+            //clear commands just in case there was a selection made prior, 
+            // this way, only one command is selected at the end; the new one.
             flowchart.ClearSelectedCommands();
 
+            CommandListAdaptor.ScrollToCommandOnDraw = true;
+            flowchart.AddSelectedCommand(newCommand); //select the new command.
         }
     }
 }

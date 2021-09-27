@@ -1,4 +1,4 @@
-// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
@@ -6,7 +6,6 @@ using UnityEngine.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 
 namespace Fungus
 {
@@ -25,7 +24,7 @@ namespace Fungus
         [SerializeField] protected Canvas dialogCanvas;
 
         [Tooltip("The name text UI object")]
-        [SerializeField] protected TMP_Text nameText;
+        [SerializeField] protected Text nameText;
         [Tooltip("TextAdapter will search for appropriate output on this GameObject if nameText is null")]
         [SerializeField] protected GameObject nameTextGO;
         protected TextAdapter nameTextAdapter = new TextAdapter();
@@ -42,7 +41,7 @@ namespace Fungus
         }
 
         [Tooltip("The story text UI object")]
-        [SerializeField] protected TMP_Text storyText;
+        [SerializeField] protected Text storyText;
         [Tooltip("TextAdapter will search for appropriate output on this GameObject if storyText is null")]
         [SerializeField] protected GameObject storyTextGO;
         protected TextAdapter storyTextAdapter = new TextAdapter();
