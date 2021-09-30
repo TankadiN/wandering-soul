@@ -13,42 +13,50 @@ public class GameMenu : MonoBehaviour
     [Header("Save Menu")]
     public GameObject SavePanel;
     public bool playerSaved;
+
+
     private Interaction interaction;
+    private Selectable resetSelect;
 
     private void Start()
     {
         interaction = GameObject.Find("Player").GetComponent<Interaction>();
+        resetSelect = GameObject.Find("ResetSelection").GetComponent<Selectable>();
     }
 
     private void Update()
     {
-        if(Input.GetButtonDown("Menu"))
+        if (GameObject.Find("BattleManager").GetComponent<TurnHandle>().state == BattleState.StandBy)
         {
-            if (SavePanel.activeInHierarchy)
+            if (Input.GetButtonDown("Menu"))
             {
-                if(playerSaved)
+                if (SavePanel.activeInHierarchy)
                 {
-                    SavePanel.SetActive(false);
-                    interaction.InteractionSwitch();
-                    EventSystem.current.SetSelectedGameObject(SavePanel.transform.Find("ButtonList").transform.Find("Return").gameObject);
-                }
-            }
-            else
-            {
-                if (GamePanel.activeInHierarchy)
-                {
-                    CloseAll();
-                    interaction.InteractionSwitch();
-                    EventSystem.current.SetSelectedGameObject(GamePanel.transform.Find("MainList").transform.Find("Status").gameObject);
+                    if (playerSaved)
+                    {
+                        SavePanel.SetActive(false);
+                        interaction.InteractionSwitch();
+                        EventSystem.current.SetSelectedGameObject(SavePanel.transform.Find("ButtonList").transform.Find("Return").gameObject);
+                    }
                 }
                 else
                 {
-                    GamePanel.SetActive(true);
-                    EventSystem.current.SetSelectedGameObject(GamePanel.GetComponentInChildren<Button>().gameObject);
-                    interaction.InteractionSwitch();
+                    if (GamePanel.activeInHierarchy)
+                    {
+                        CloseAll();
+                        interaction.InteractionSwitch();
+                        EventSystem.current.SetSelectedGameObject(resetSelect.gameObject);
+                    }
+                    else
+                    {
+                        GamePanel.SetActive(true);
+                        EventSystem.current.SetSelectedGameObject(GamePanel.GetComponentInChildren<Button>().gameObject);
+                        interaction.InteractionSwitch();
+                    }
                 }
             }
         }
+
         if (Input.GetButtonDown("Cancel"))
         {
             if(SavePanel.activeInHierarchy)

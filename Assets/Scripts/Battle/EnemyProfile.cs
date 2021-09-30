@@ -11,5 +11,7 @@ public class EnemyProfile : ScriptableObject
 
     public GameObject[] enemyAttacks;
 
-    public GameObject flowchart;
+    //public GameObject flowchart;
+
+    public string[] actions;
 }

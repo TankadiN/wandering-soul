@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using TMPro;
+using Fungus;
 
 public enum BattleState
 {
@@ -23,18 +25,28 @@ public class TurnHandle : MonoBehaviour
     public GameObject box;
 
     public GameObject enemyPrefab;
+    //public GameObject actButtonPrefab;
+    public ActButtons[] actButtons;
     public List<GameObject> enemyPositions;
+    public List<Button> enemyButtons;
+
+    public Flowchart enemyActFlowchart;
 
     public List<EnemyProfile> enemiesInBattle;
     public List<GameObject> enemiesAlive;
     private bool enemyActed;
     private GameObject[] enemyAtks;
 
+
     public PlayerMovement playerHeart;
     public PlayerController playerStats;
     [Header("Player UI")]
     public GameObject playerUi;
     public GameObject battleInventory;
+    public GameObject playerActPanel;
+    public List<GameObject> enemyActContainers;
+
+    private int en = 0;
 
     void Start()
     {
@@ -42,7 +54,6 @@ public class TurnHandle : MonoBehaviour
         enemyActed = false;
         playerUi.GetComponentInChildren<Button>().Select();
     }
-
 
     void Update()
     {
@@ -52,10 +63,13 @@ public class TurnHandle : MonoBehaviour
         }
         else if (state == BattleState.Initialize)
         {
+            en = 0;
             foreach(EnemyProfile e in enemiesInBattle)
             {
                 GameObject go = Instantiate(enemyPrefab) as GameObject;
-                foreach(GameObject o in enemyPositions)
+                //GameObject flow = Instantiate(e.flowchart) as GameObject;
+                //GameObject act = Instantiate(actButtonPrefab) as GameObject;
+                foreach (GameObject o in enemyPositions)
                 {
                     if(o.transform.childCount <= 0)
                     {
@@ -65,12 +79,55 @@ public class TurnHandle : MonoBehaviour
                     }
                 }
                 go.name = e.name;
+                //flow.name = e.name;
+                //flow.transform.SetParent(go.transform, true);
                 go.GetComponent<Enemy>().enemyProf = e;
                 go.GetComponent<SpriteRenderer>().sprite = e.enemyVisual;
                 go.GetComponent<Enemy>().health = e.hp;
                 enemiesAlive.Add(go);
+
+                for(int i = 0; i < e.actions.Length; i++)
+                {
+                    if(i >= e.actions.Length)
+                    {
+                        actButtons[en].buttons[i].gameObject.SetActive(false);
+                    }
+                    string action = e.name + "/" + e.actions[i];
+                    actButtons[en].buttons[i].GetComponentInChildren<TMP_Text>().text = e.actions[i];
+                    actButtons[en].buttons[i].onClick.AddListener(delegate { actButton(action); });
+                }
+
+                foreach (Button b in enemyButtons)
+                {
+                    if (b.GetComponentInChildren<TMP_Text>().text == "Enemy")
+                    {
+                        b.GetComponentInChildren<TMP_Text>().text = e.name;
+                        break;
+                    }
+                }
+                en++;
             }
+            enemiesInBattle.Clear();
             state = BattleState.Start;
+            en = 0;
+            foreach (Button b in enemyButtons)
+            {
+                if (b.GetComponentInChildren<TMP_Text>().text == "Enemy")
+                {
+                    b.gameObject.SetActive(false);
+                }
+            }
+
+            /*foreach (ActButtons actB in actButtons)
+            {
+                foreach(Button b in actB.buttons)
+                {
+                    if (b.GetComponentInChildren<TMP_Text>().text == "Act")
+                    {
+                        b.gameObject.SetActive(false);
+                    }
+                }
+            }*/
         }
         else if (state == BattleState.Start)
         {
@@ -84,9 +141,10 @@ public class TurnHandle : MonoBehaviour
         }
         else if (state == BattleState.EnemyTurn)
         {
-            if(enemiesInBattle.Count <= 0)
+            if(enemiesAlive.Count <= 0)
             {
-                enemyFinishedTurn();
+                //enemyFinishedTurn();
+                state = BattleState.Won;
             }
             else
             {
@@ -143,12 +201,16 @@ public class TurnHandle : MonoBehaviour
         else if (state == BattleState.Won)
         {
             //won
+            Debug.Log("Battle Won");
         }
         else if (state == BattleState.Lost)
         {
             //lost
+            Debug.Log("Battle Lost");
         }
-
+        //======
+        //Inputs
+        //======
         if(Input.GetButtonDown("Cancel"))
         {
             if(battleInventory.activeInHierarchy)
@@ -156,8 +218,42 @@ public class TurnHandle : MonoBehaviour
                 battleInventory.SetActive(false);
                 playerUi.transform.Find("Item").GetComponent<Button>().Select();
             }
+            else if(playerActPanel.activeInHierarchy)
+            {
+                playerActPanel.SetActive(false);
+                playerUi.transform.Find("Act").GetComponent<Button>().Select();
+            }
+            else if(enemyActContainers[0].activeInHierarchy || enemyActContainers[1].activeInHierarchy || enemyActContainers[2].activeInHierarchy)
+            {
+                foreach(GameObject cont in enemyActContainers)
+                {
+                    cont.SetActive(false);
+                }
+
+                if(enemyActContainers[0].activeInHierarchy)
+                {
+                    playerUi.transform.Find("Enemy0").GetComponent<Button>().Select();
+                }
+                else if (enemyActContainers[1].activeInHierarchy)
+                {
+                    playerUi.transform.Find("Enemy1").GetComponent<Button>().Select();
+                }
+                else if (enemyActContainers[2].activeInHierarchy)
+                {
+                    playerUi.transform.Find("Enemy2").GetComponent<Button>().Select();
+                }
+            }
         }
 
+    }
+    public void CloseAll()
+    {
+        battleInventory.SetActive(false);
+        playerActPanel.SetActive(false);
+        foreach (GameObject cont in enemyActContainers)
+        {
+            cont.SetActive(false);
+        }
     }
 
     public void AddEnemy(EnemyProfile enemy)
@@ -167,7 +263,14 @@ public class TurnHandle : MonoBehaviour
     //===========Player Actions===============
     public void PlayerAct()
     {
-        playerFinishTurn();
+        playerActPanel.SetActive(true);
+        playerActPanel.GetComponentInChildren<RectTransform>().gameObject.GetComponentInChildren<Button>().Select();
+        //playerFinishTurn();
+    }
+    public void SelectEnemy(int id)
+    {
+        enemyActContainers[id].SetActive(true);
+        enemyActContainers[id].GetComponentInChildren<RectTransform>().gameObject.GetComponentInChildren<Button>().Select();
     }
 
     public void PlayerItem()
@@ -210,4 +313,16 @@ public class TurnHandle : MonoBehaviour
         enemyActed = false;
         state = BattleState.FinishedTurn;
     }
+
+    public void actButton(string blockName)
+    {
+        enemyActFlowchart.ExecuteBlock(blockName);
+        CloseAll();
+    }
+}
+
+[System.Serializable]
+public class ActButtons
+{
+    public Button[] buttons;
 }

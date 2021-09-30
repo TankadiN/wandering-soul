@@ -31,7 +31,7 @@ public class Interaction : MonoBehaviour
         pMov = GetComponent<PlayerMovement>();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         type = ObjectType.Nothing;
 

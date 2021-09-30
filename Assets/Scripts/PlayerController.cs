@@ -109,7 +109,7 @@ public class PlayerController : MonoBehaviour {
         AudioManager.instance.Play("levelup");
         //bar.GetComponent<RectTransform>().sizeDelta += new Vector2(25f, 0f);
         level++;
-        maxHealth += 4;
+        maxHealth += 5;
         currentHealth = maxHealth;
         float leftoverExp = currentExperience - maxExperience;
         maxExperience += 50;
@@ -127,7 +127,7 @@ public class PlayerController : MonoBehaviour {
             {
                 Death();
             }
-            invTime = 3;
+            invTime = 1;
         }
     }
 
@@ -187,7 +187,7 @@ public class PlayerController : MonoBehaviour {
             Vector2 tempVector;
             tempVector.x = SaveLoad.Load<float>("PlayerPositionX");
             tempVector.y = SaveLoad.Load<float>("PlayerPositiony");
-            gameObject.transform.position = tempVector;
+            playerObjects[0].transform.position = tempVector;
         }
     }
 }
