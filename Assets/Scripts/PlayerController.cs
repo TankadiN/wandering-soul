@@ -47,6 +47,7 @@ public class PlayerController : MonoBehaviour {
                 playerName = GlobalVariables.instance.playerName;
             }
         }
+        SendPlayerNameToFlow();
         GameEvents.SaveInitiated += Save;
         Load();
     }
@@ -161,6 +162,11 @@ public class PlayerController : MonoBehaviour {
     public void SetMenuArtNumber(int newNumber)
     {
         menuArtNumber = newNumber;
+    }
+
+    public void SendPlayerNameToFlow()
+    {
+        mainFlow.SetStringVariable("playerName", playerName);
     }
 
     void Save()

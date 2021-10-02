@@ -86,15 +86,18 @@ public class TurnHandle : MonoBehaviour
                 go.GetComponent<Enemy>().health = e.hp;
                 enemiesAlive.Add(go);
 
-                for(int i = 0; i < e.actions.Length; i++)
+                for(int i = 0; i < actButtons[en].buttons.Length; i++)
                 {
                     if(i >= e.actions.Length)
                     {
                         actButtons[en].buttons[i].gameObject.SetActive(false);
                     }
-                    string action = e.name + "/" + e.actions[i];
-                    actButtons[en].buttons[i].GetComponentInChildren<TMP_Text>().text = e.actions[i];
-                    actButtons[en].buttons[i].onClick.AddListener(delegate { actButton(action); });
+                    else
+                    {
+                        string action = e.name + "/" + e.actions[i];
+                        actButtons[en].buttons[i].GetComponentInChildren<TMP_Text>().text = e.actions[i];
+                        actButtons[en].buttons[i].onClick.AddListener(delegate { actButton(action); });
+                    }
                 }
 
                 foreach (Button b in enemyButtons)
@@ -218,30 +221,30 @@ public class TurnHandle : MonoBehaviour
                 battleInventory.SetActive(false);
                 playerUi.transform.Find("Item").GetComponent<Button>().Select();
             }
-            else if(playerActPanel.activeInHierarchy)
-            {
-                playerActPanel.SetActive(false);
-                playerUi.transform.Find("Act").GetComponent<Button>().Select();
-            }
             else if(enemyActContainers[0].activeInHierarchy || enemyActContainers[1].activeInHierarchy || enemyActContainers[2].activeInHierarchy)
             {
+                if(enemyActContainers[0].activeInHierarchy)
+                {
+                    playerActPanel.transform.Find("EnemyPicker").GetChild(0).GetChild(0).GetComponent<Button>().Select();
+                }
+                else if (enemyActContainers[1].activeInHierarchy)
+                {
+                    playerActPanel.transform.Find("EnemyPicker").GetChild(0).GetChild(1).GetComponent<Button>().Select();
+                }
+                else if (enemyActContainers[2].activeInHierarchy)
+                {
+                    playerActPanel.transform.Find("EnemyPicker").GetChild(0).GetChild(2).GetComponent<Button>().Select();
+                }
+
                 foreach(GameObject cont in enemyActContainers)
                 {
                     cont.SetActive(false);
                 }
-
-                if(enemyActContainers[0].activeInHierarchy)
-                {
-                    playerUi.transform.Find("Enemy0").GetComponent<Button>().Select();
-                }
-                else if (enemyActContainers[1].activeInHierarchy)
-                {
-                    playerUi.transform.Find("Enemy1").GetComponent<Button>().Select();
-                }
-                else if (enemyActContainers[2].activeInHierarchy)
-                {
-                    playerUi.transform.Find("Enemy2").GetComponent<Button>().Select();
-                }
+            }
+            else if(playerActPanel.activeInHierarchy)
+            {
+                playerActPanel.SetActive(false);
+                playerUi.transform.Find("Act").GetComponent<Button>().Select();
             }
         }
 
