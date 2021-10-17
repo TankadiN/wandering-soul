@@ -2,6 +2,7 @@
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
+using UnityEngine.Audio;
 
 namespace Fungus
 {
@@ -17,6 +18,9 @@ namespace Fungus
         [Tooltip("Sound effect clip to play")]
         [SerializeField]
         protected AudioClip[] soundClip;
+
+        [Tooltip("Audio mixer group to attach")]
+        [SerializeField] protected AudioMixerGroup audioGroup;
 
         [Range(0, 1)]
         [Tooltip("Volume level of the sound effect")]
@@ -45,7 +49,7 @@ namespace Fungus
 
             var musicManager = FungusManager.Instance.MusicManager;
 
-            musicManager.PlaySound(soundClip[rand], volume);
+            musicManager.PlaySound(soundClip[rand], audioGroup, volume);
 
             if (waitUntilFinished)
             {

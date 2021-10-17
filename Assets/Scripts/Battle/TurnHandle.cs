@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
 using Fungus;
+using Cinemachine;
 
 public enum BattleState
 {
@@ -22,25 +23,33 @@ public class TurnHandle : MonoBehaviour
 {
     public BattleState state;
 
+    public RectTransform CanvasRect;
+
     public GameObject box;
 
     public GameObject enemyPrefab;
-    //public GameObject actButtonPrefab;
     public ActButtons[] actButtons;
     public List<GameObject> enemyPositions;
     public List<Button> enemyButtons;
-
-    public Flowchart enemyActFlowchart;
-
     public List<EnemyProfile> enemiesInBattle;
     public List<GameObject> enemiesAlive;
+
     private bool enemyActed;
+    public Flowchart enemyActFlowchart;
+
     private GameObject[] enemyAtks;
-
-
     public PlayerMovement playerHeart;
     public PlayerController playerStats;
+
+    public Enemy selectedEnemy;
+    public GameObject target;
+    [Header("Camera")]
+    public GameObject virtCameraCont;
+    public CinemachineVirtualCamera battleCam;
+    private CinemachineVirtualCamera lastActiveCam;
+    private CinemachineVirtualCamera[] cams;
     [Header("Player UI")]
+    public GameObject playerBattlePanel;
     public GameObject playerUi;
     public GameObject battleInventory;
     public GameObject playerActPanel;
@@ -53,6 +62,7 @@ public class TurnHandle : MonoBehaviour
         state = BattleState.StandBy;
         enemyActed = false;
         playerUi.GetComponentInChildren<Button>().Select();
+        cams = virtCameraCont.GetComponentsInChildren<CinemachineVirtualCamera>();
     }
 
     void Update()
@@ -67,8 +77,6 @@ public class TurnHandle : MonoBehaviour
             foreach(EnemyProfile e in enemiesInBattle)
             {
                 GameObject go = Instantiate(enemyPrefab) as GameObject;
-                //GameObject flow = Instantiate(e.flowchart) as GameObject;
-                //GameObject act = Instantiate(actButtonPrefab) as GameObject;
                 foreach (GameObject o in enemyPositions)
                 {
                     if(o.transform.childCount <= 0)
@@ -79,11 +87,9 @@ public class TurnHandle : MonoBehaviour
                     }
                 }
                 go.name = e.name;
-                //flow.name = e.name;
-                //flow.transform.SetParent(go.transform, true);
                 go.GetComponent<Enemy>().enemyProf = e;
                 go.GetComponent<SpriteRenderer>().sprite = e.enemyVisual;
-                go.GetComponent<Enemy>().health = e.hp;
+                go.GetComponent<Enemy>().maxHealth = e.hp;
                 enemiesAlive.Add(go);
 
                 for(int i = 0; i < actButtons[en].buttons.Length; i++)
@@ -102,35 +108,41 @@ public class TurnHandle : MonoBehaviour
 
                 foreach (Button b in enemyButtons)
                 {
-                    if (b.GetComponentInChildren<TMP_Text>().text == "Enemy")
+                    if (b.transform.Find("Name").GetComponent<TMP_Text>().text == "Enemy")
                     {
-                        b.GetComponentInChildren<TMP_Text>().text = e.name;
+                        b.transform.Find("Name").GetComponent<TMP_Text>().text = e.name;
+                        go.GetComponent<Enemy>().hpPerc = b.transform.Find("Hp_Perc").GetComponent<TMP_Text>();
+                        go.GetComponent<Enemy>().mercyPerc = b.transform.Find("Mercy_Perc").GetComponent<TMP_Text>();
+                        go.GetComponent<Enemy>().hpBar = b.transform.Find("HpBar").transform.Find("HpFill").GetComponent<Image>();
+                        go.GetComponent<Enemy>().mercyBar = b.transform.Find("MercyBar").transform.Find("MercyFill").GetComponent<Image>();
                         break;
                     }
                 }
                 en++;
             }
             enemiesInBattle.Clear();
+            
+            foreach (CinemachineVirtualCamera cam in cams)
+            {
+                if (cam.Priority == 1)
+                {
+                    lastActiveCam = cam;
+                }
+                cam.Priority = 0;
+            }
+
+            playerBattlePanel.SetActive(true);
+            battleCam.Priority = 1;
+
             state = BattleState.Start;
             en = 0;
             foreach (Button b in enemyButtons)
             {
-                if (b.GetComponentInChildren<TMP_Text>().text == "Enemy")
+                if (b.transform.Find("Name").GetComponent<TMP_Text>().text == "Enemy")
                 {
                     b.gameObject.SetActive(false);
                 }
             }
-
-            /*foreach (ActButtons actB in actButtons)
-            {
-                foreach(Button b in actB.buttons)
-                {
-                    if (b.GetComponentInChildren<TMP_Text>().text == "Act")
-                    {
-                        b.gameObject.SetActive(false);
-                    }
-                }
-            }*/
         }
         else if (state == BattleState.Start)
         {
@@ -138,7 +150,7 @@ public class TurnHandle : MonoBehaviour
             playerUi.GetComponentInChildren<Button>().Select();
             state = BattleState.PlayerTurn;
         }
-        else if(state == BattleState.PlayerTurn)
+        else if (state == BattleState.PlayerTurn)
         {
             //wait for player to attack
         }
@@ -240,6 +252,8 @@ public class TurnHandle : MonoBehaviour
                 {
                     cont.SetActive(false);
                 }
+                selectedEnemy = null;
+                target.SetActive(false);
             }
             else if(playerActPanel.activeInHierarchy)
             {
@@ -247,6 +261,20 @@ public class TurnHandle : MonoBehaviour
                 playerUi.transform.Find("Act").GetComponent<Button>().Select();
             }
         }
+        //==============
+        //Other Funcions
+        //==============
+        /*if(selectedEnemy)
+        {
+            target.SetActive(true);
+
+            Vector2 ViewportPosition = Camera.main.WorldToViewportPoint(selectedEnemy.gameObject.transform.position);
+            Vector2 WorldObject_ScreenPosition = new Vector2(
+            (ViewportPosition.x * CanvasRect.sizeDelta.x) - (CanvasRect.sizeDelta.x * 0.5f),
+            (ViewportPosition.y * CanvasRect.sizeDelta.y) - (CanvasRect.sizeDelta.y * 0.5f));
+
+            target.GetComponent<RectTransform>().anchoredPosition = WorldObject_ScreenPosition;
+        }*/
 
     }
     public void CloseAll()
@@ -263,15 +291,20 @@ public class TurnHandle : MonoBehaviour
     {
         enemiesInBattle.Add(enemy);
     }
-    //===========Player Actions===============
+    //==============
+    //Player Actions
+    //==============
     public void PlayerAct()
     {
         playerActPanel.SetActive(true);
         playerActPanel.GetComponentInChildren<RectTransform>().gameObject.GetComponentInChildren<Button>().Select();
         //playerFinishTurn();
     }
+
     public void SelectEnemy(int id)
     {
+        selectedEnemy = enemiesAlive[id].GetComponent<Enemy>();
+        applyTarget();
         enemyActContainers[id].SetActive(true);
         enemyActContainers[id].GetComponentInChildren<RectTransform>().gameObject.GetComponentInChildren<Button>().Select();
     }
@@ -281,6 +314,7 @@ public class TurnHandle : MonoBehaviour
         battleInventory.SetActive(true);
         battleInventory.GetComponentInChildren<RectTransform>().gameObject.GetComponentInChildren<Button>().Select();
     }
+
     public void PlayerUseItem()
     {
         if(GameObject.Find("GameManager").GetComponent<ItemInspect>().checkUse())
@@ -293,15 +327,28 @@ public class TurnHandle : MonoBehaviour
             GameObject.Find("GameManager").GetComponent<ItemInspect>().UseBattleItem();
         }
     }
-    //===========Player Actions===============
-    public void TestInitialize()
+    //===============
+    //Other Functions
+    //===============
+    public void startInitialize()
     {
         state = BattleState.Initialize;
+    }
+
+    public void addMercy(float amount)
+    {
+        selectedEnemy.mercy += amount;
+    }
+
+    public void dealDamage(float amount)
+    {
+        selectedEnemy.curHealth -= amount;
     }
 
     public void playerFinishTurn()
     {
         playerUi.SetActive(false);
+        target.SetActive(false);
         GameObject.Find("ResetSelection").GetComponent<Selectable>().Select();
         state = BattleState.EnemyTurn;
     }
@@ -321,6 +368,18 @@ public class TurnHandle : MonoBehaviour
     {
         enemyActFlowchart.ExecuteBlock(blockName);
         CloseAll();
+    }
+
+    public void applyTarget()
+    {
+        target.SetActive(true);
+
+        Vector2 ViewportPosition = Camera.main.WorldToViewportPoint(selectedEnemy.gameObject.transform.position);
+        Vector2 WorldObject_ScreenPosition = new Vector2(
+        (ViewportPosition.x * CanvasRect.sizeDelta.x) - (CanvasRect.sizeDelta.x * 0.5f),
+        (ViewportPosition.y * CanvasRect.sizeDelta.y) - (CanvasRect.sizeDelta.y * 0.5f));
+
+        target.GetComponent<RectTransform>().anchoredPosition = WorldObject_ScreenPosition;
     }
 }
 

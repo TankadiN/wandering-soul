@@ -33,9 +33,9 @@ public class AreaChange : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         foreach (CinemachineVirtualCamera Cam in vCams)
         {
-            Cam.m_Priority = 0;
+            Cam.Priority = 0;
         }
-        destinatedCamera.m_Priority = 1;
+        destinatedCamera.Priority = 1;
         GameObject.Find("Player").transform.position = locationTeleport.transform.position;
         anim.SetTrigger("FadeIn");
     }

@@ -22,15 +22,19 @@ public class PlayerController : MonoBehaviour {
     public float maxHealth;
     public float currentHealth;
     public float invTime;
+    private float curInvTime;
     [Header("Level Variables")]
     public float level;
     public float maxExperience;
     public float currentExperience;
     [Header("Color Control")]
     public SpriteRenderer outlinePlayer;
+    public SpriteRenderer spritePlayer;
     public SpriteRenderer soulPlayer;
     [Header("Color Control Soul")]
     public List<SpriteRenderer> soulHeart;
+
+    public GameObject playerObject;
 
     void Start ()
     {
@@ -54,9 +58,9 @@ public class PlayerController : MonoBehaviour {
 	
 	void Update ()
     {
-        if(invTime > 0)
+        if(curInvTime > 0)
         {
-            invTime -= Time.deltaTime;
+            curInvTime -= Time.deltaTime;
             foreach (SpriteRenderer spr in soulHeart)
             {
                 spr.color = new Color(spr.color.r, spr.color.g, spr.color.b, 0.5f);
@@ -65,7 +69,7 @@ public class PlayerController : MonoBehaviour {
 
         foreach(SpriteRenderer spr in soulHeart)
         {
-            if (invTime < 0)
+            if (curInvTime < 0)
             {
                 spr.color = new Color(spr.color.r, spr.color.g, spr.color.b, 1);
             }
@@ -120,7 +124,7 @@ public class PlayerController : MonoBehaviour {
 
     public void Damage(float amount)
     {
-        if(invTime <= 0)
+        if(curInvTime <= 0)
         {
             AudioManager.instance.Play("soul_hurt");
             currentHealth -= amount;
@@ -128,7 +132,7 @@ public class PlayerController : MonoBehaviour {
             {
                 Death();
             }
-            invTime = 1;
+            curInvTime = invTime;
         }
     }
 

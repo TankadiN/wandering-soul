@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class GameMenu : MonoBehaviour
 {
+    public GameObject canvas;
     [Header("Ingame Menu")]
     public GameObject GamePanel;
     public GameObject ItemPanel;
@@ -22,6 +23,7 @@ public class GameMenu : MonoBehaviour
     {
         interaction = GameObject.Find("Player").GetComponent<Interaction>();
         resetSelect = GameObject.Find("ResetSelection").GetComponent<Selectable>();
+        canvas.GetComponent<Animator>().SetTrigger("FadeIn");
     }
 
     private void Update()

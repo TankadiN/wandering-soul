@@ -2,6 +2,7 @@
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
+using UnityEngine.Audio;
 
 namespace Fungus
 {
@@ -16,6 +17,9 @@ namespace Fungus
     {
         [Tooltip("Music sound clip to play")]
         [SerializeField] protected AudioClip musicClip;
+
+        [Tooltip("Audio Mixer group to assign")]
+        [SerializeField] protected AudioMixerGroup audioGroup;
 
         [Tooltip("Time to begin playing in seconds. If the audio file is compressed, the time index may be inaccurate.")]
         [SerializeField] protected float atTime;
@@ -33,7 +37,7 @@ namespace Fungus
             var musicManager = FungusManager.Instance.MusicManager;
 
             float startTime = Mathf.Max(0, atTime);
-            musicManager.PlayMusic(musicClip, loop, fadeDuration, startTime);
+            musicManager.PlayMusic(musicClip, audioGroup, loop, fadeDuration, startTime);
                 
             Continue();
         }

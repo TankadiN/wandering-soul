@@ -2,6 +2,7 @@
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
+using UnityEngine.Audio;
 
 namespace Fungus
 {
@@ -45,7 +46,7 @@ namespace Fungus
         /// Plays game music using an audio clip.
         /// One music clip may be played at a time.
         /// </summary>
-        public void PlayMusic(AudioClip musicClip, bool loop, float fadeDuration, float atTime)
+        public void PlayMusic(AudioClip musicClip, AudioMixerGroup mixerGroup, bool loop, float fadeDuration, float atTime)
         {
             if (audioSourceMusic == null || audioSourceMusic.clip == musicClip)
             {
@@ -55,6 +56,7 @@ namespace Fungus
             if (Mathf.Approximately(fadeDuration, 0f))
             {
                 audioSourceMusic.clip = musicClip;
+                audioSourceMusic.outputAudioMixerGroup = mixerGroup;
                 audioSourceMusic.loop = loop;
                 audioSourceMusic.time = atTime;  // May be inaccurate if the audio source is compressed http://docs.unity3d.com/ScriptReference/AudioSource-time.html BK
                 audioSourceMusic.Play();
@@ -71,6 +73,7 @@ namespace Fungus
                         // Play new music
                         audioSourceMusic.volume = startVolume;
                         audioSourceMusic.clip = musicClip;
+                        audioSourceMusic.outputAudioMixerGroup = mixerGroup;
                         audioSourceMusic.loop = loop;
                         audioSourceMusic.time = atTime;  // May be inaccurate if the audio source is compressed http://docs.unity3d.com/ScriptReference/AudioSource-time.html BK
                         audioSourceMusic.Play();
@@ -83,8 +86,9 @@ namespace Fungus
         /// </summary>
         /// <param name="soundClip">The sound effect clip to play.</param>
         /// <param name="volume">The volume level of the sound effect.</param>
-        public virtual void PlaySound(AudioClip soundClip, float volume)
+        public virtual void PlaySound(AudioClip soundClip, AudioMixerGroup mixerGroup, float volume)
         {
+            audioSourceSoundEffect.outputAudioMixerGroup = mixerGroup;
             audioSourceSoundEffect.PlayOneShot(soundClip, volume);
         }
 
