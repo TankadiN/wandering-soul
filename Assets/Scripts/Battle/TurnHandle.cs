@@ -304,7 +304,7 @@ public class TurnHandle : MonoBehaviour
     public void SelectEnemy(int id)
     {
         selectedEnemy = enemiesAlive[id].GetComponent<Enemy>();
-        applyTarget();
+        Target();
         enemyActContainers[id].SetActive(true);
         enemyActContainers[id].GetComponentInChildren<RectTransform>().gameObject.GetComponentInChildren<Button>().Select();
     }
@@ -338,11 +338,13 @@ public class TurnHandle : MonoBehaviour
     public void addMercy(float amount)
     {
         selectedEnemy.mercy += amount;
+        showValue(amount, ValuePopup.Type.Mercy);
     }
 
     public void dealDamage(float amount)
     {
         selectedEnemy.curHealth -= amount;
+        showValue(amount, ValuePopup.Type.Damage);
     }
 
     public void playerFinishTurn()
@@ -370,7 +372,7 @@ public class TurnHandle : MonoBehaviour
         CloseAll();
     }
 
-    public void applyTarget()
+    public void Target()
     {
         target.SetActive(true);
 
@@ -380,6 +382,11 @@ public class TurnHandle : MonoBehaviour
         (ViewportPosition.y * CanvasRect.sizeDelta.y) - (CanvasRect.sizeDelta.y * 0.5f));
 
         target.GetComponent<RectTransform>().anchoredPosition = WorldObject_ScreenPosition;
+    }
+
+    public void showValue(float amount, ValuePopup.Type type)
+    {
+        ValuePopup.Create(selectedEnemy.transform.position, amount, type);
     }
 }
 

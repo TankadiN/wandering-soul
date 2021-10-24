@@ -35,9 +35,13 @@ public class PlayerController : MonoBehaviour {
     public List<SpriteRenderer> soulHeart;
 
     public GameObject playerObject;
+    public GameObject playerBattleObject;
+
+    private RectTransform CanvasRect;
 
     void Start ()
     {
+        CanvasRect = GameObject.Find("Canvas").GetComponent<RectTransform>();
         currentHealth = maxHealth;
         soulPlayer.color = new Color(outlinePlayer.color.r, outlinePlayer.color.g, outlinePlayer.color.b, 255);
         if(GlobalVariables.instance)
@@ -112,7 +116,6 @@ public class PlayerController : MonoBehaviour {
     public void LevelUp()
     {
         AudioManager.instance.Play("levelup");
-        //bar.GetComponent<RectTransform>().sizeDelta += new Vector2(25f, 0f);
         level++;
         maxHealth += 5;
         currentHealth = maxHealth;
@@ -124,10 +127,12 @@ public class PlayerController : MonoBehaviour {
 
     public void Damage(float amount)
     {
-        if(curInvTime <= 0)
+        if (curInvTime <= 0)
         {
             AudioManager.instance.Play("soul_hurt");
             currentHealth -= amount;
+            ValuePopup.Create(playerObject.transform.position, amount, ValuePopup.Type.Damage);
+            ValuePopup.Create(playerBattleObject.transform.position, amount, ValuePopup.Type.Damage);
             if (currentHealth <= 0)
             {
                 Death();
