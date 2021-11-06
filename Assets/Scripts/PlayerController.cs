@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour {
     [Header("Player Variables")]
     public string playerName;
     public int menuArtNumber;
+    public float money;
     [Header("Health Variables")]
     public float maxHealth;
     public float currentHealth;
@@ -27,6 +28,8 @@ public class PlayerController : MonoBehaviour {
     public float level;
     public float maxExperience;
     public float currentExperience;
+    [Header("Attack")]
+    public float attackValue;
     [Header("Color Control")]
     public SpriteRenderer outlinePlayer;
     public SpriteRenderer spritePlayer;

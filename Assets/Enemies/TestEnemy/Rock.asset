@@ -16,8 +16,8 @@ MonoBehaviour:
   enemyVisual: {fileID: 21300000, guid: 195dab88d492ec54296bee3203d98f5b, type: 3}
   enemyAttacks:
   - {fileID: 372670115476243075, guid: 7c0acc55fb44ed64386f197c4106edfa, type: 3}
-  flowchart: {fileID: 7535097272090024288, guid: 114c04b36ee97aa4d81950329446289c,
-    type: 3}
+  exp: 5
+  money: 10
   actions:
   - Check
   - Kick

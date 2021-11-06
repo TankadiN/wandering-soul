@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d949b1973119b54ea13235f1667a030, type: 3}
   m_Name: Banana
   m_EditorClassIdentifier: 
-  hp: 10
+  hp: 2
   enemyVisual: {fileID: -2891858885073237266, guid: 15b46920e8ffd8f4894a5345e4dcf1ac,
     type: 3}
   enemyAttacks:
   - {fileID: 7702887368934878079, guid: d06fcc6b87162094cbded01b21080a7d, type: 3}
+  exp: 10
+  money: 25
   actions:
   - Check
   - Eat

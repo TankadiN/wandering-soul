@@ -21,7 +21,12 @@ public class ValuePopup : MonoBehaviour
 
     public void Setup(float amount, Type type)
     {
-        if(type == Type.Damage)
+        if(type == Type.Miss)
+        {
+            textbox.SetText("MISS");
+            textColor = missColor;
+        }
+        else if(type == Type.Damage)
         {
             textbox.SetText(amount.ToString());
             textColor = damageColor;
@@ -37,6 +42,7 @@ public class ValuePopup : MonoBehaviour
 
     public enum Type
     {
+        Miss,
         Damage,
         Mercy
     }
@@ -47,6 +53,7 @@ public class ValuePopup : MonoBehaviour
     private Color textColor;
     public Color damageColor;
     public Color mercyColor;
+    public Color missColor;
     public float moveYSpeed;
 
     private void Update()
