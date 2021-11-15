@@ -15,7 +15,7 @@ public class Inventory : MonoBehaviour
 
     private void Start()
     {
-        GameEvents.SaveInitiated += Save;
+        //GameEvents.SaveInitiated += Save;
         Load();
     }
 
@@ -56,16 +56,14 @@ public class Inventory : MonoBehaviour
         flow.SetBooleanVariable("isFull", isFull);
     }
 
-    void Save()
-    {
-        SaveLoad.Save<List<Item>>(Items, "Inventory");
-    }
-
     void Load()
     {
-        if (SaveChecker.CheckSaveFile())
+        string saveString = SaveSystem.Load();
+        if (saveString != null)
         {
-            AddItems(SaveLoad.Load<List<Item>>("Inventory"));
+            Savepoint.SaveData saveData = JsonUtility.FromJson<Savepoint.SaveData>(saveString);
+
+            AddItems(saveData.Items);
         }
     }
 }

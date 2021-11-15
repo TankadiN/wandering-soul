@@ -31,10 +31,21 @@ public class Savepoint : MonoBehaviour
     [SerializeField]
     private Flowchart saveFlow = null;
 
+    private PlayerController playerCtrl;
+    private Inventory playerInv;
+    private CameraSave camSave;
+
+    private void Awake()
+    {
+        SaveSystem.Init();
+    }
+
     private void Start()
     {
-        GameEvents.SaveInitiated += Save;
         Load();
+        playerCtrl = GameObject.Find("GameManager").GetComponent<PlayerController>();
+        playerInv = GameObject.Find("GameManager").GetComponent<Inventory>();
+        camSave = GameObject.Find("GameManager").GetComponent<CameraSave>();
     }
 
     void Update()
@@ -78,16 +89,37 @@ public class Savepoint : MonoBehaviour
 
     public void SaveProgress()
     {
-        StartCoroutine(SaveData());
+        StartCoroutine(InitSaveData());
     }
 
-    public IEnumerator SaveData()
+    public IEnumerator InitSaveData()
     {
-        GameEvents.OnSaveInitiated();
+        camSave.GatherPriorities();
+        SaveData saveData = new SaveData
+        {
+            playerName = playerCtrl.playerName,
+            maxHealth = playerCtrl.maxHealth,
+            currentHealth = playerCtrl.currentHealth,
+            level = playerCtrl.level,
+            maxExperience = playerCtrl.maxExperience,
+            currentExperience = playerCtrl.currentExperience,
+            Hours = Hours,
+            Minutes = Minutes,
+            Seconds = Seconds,
+            LastLocation = LastLocation,
+            PlayerPosition = new Vector2(PlayerPositionX, PlayerPositionY),
+            camPriority = camSave.priority,
+            menuArtNumber = playerCtrl.menuArtNumber,
+            Items = playerInv.Items
+        };
+        string json = JsonUtility.ToJson(saveData);
+        SaveSystem.Save(json);
+
         NameTextbox.color = SavedColor;
         LvlTextbox.color = SavedColor;
         TimeTextbox.color = SavedColor;
         LocTextbox.color = SavedColor;
+
         ButtonPanel.SetActive(false);
         AudioManager.instance.Play("savedgame");
         Load();
@@ -95,28 +127,35 @@ public class Savepoint : MonoBehaviour
         GetComponent<GameMenu>().playerSaved = true;
     }
 
-    void Save()
-    {
-        SaveLoad.Save<int>(Hours, "TimeHours");
-        SaveLoad.Save<int>(Minutes, "TimeMinutes");
-        SaveLoad.Save<int>(Seconds, "TimeSeconds");
-        SaveLoad.Save<string>(LastLocation, "PlayerLocationName");
-        SaveLoad.Save<float>(PlayerPositionX, "PlayerPositionX");
-        SaveLoad.Save<float>(PlayerPositionY, "PlayerPositionY");
-    }
-
     void Load()
     {
-        if(SaveChecker.CheckSaveFile())
+        string saveString = SaveSystem.Load();
+        if(saveString != null)
         {
-            Hours = SaveLoad.Load<int>("TimeHours");
-            Minutes = SaveLoad.Load<int>("TimeMinutes");
-            Seconds = SaveLoad.Load<int>("TimeSeconds");
+            SaveData saveData = JsonUtility.FromJson<SaveData>(saveString);
 
-            TimeTextbox.text = Hours.ToString("0") + ":" + Minutes.ToString("00") + ":" + Seconds.ToString("00");
-            NameTextbox.text = SaveLoad.Load<string>("PlayerName");
-            LvlTextbox.text = "Lv " + SaveLoad.Load<float>("PlayerLevel").ToString();
-            LocTextbox.text = SaveLoad.Load<string>("PlayerLocationName");
+            TimeTextbox.text = saveData.Hours.ToString("0") + ":" + saveData.Minutes.ToString("00") + ":" + saveData.Seconds.ToString("00");
+            NameTextbox.text = saveData.playerName;
+            LvlTextbox.text = "Lv " + saveData.level.ToString();
+            LocTextbox.text = saveData.LastLocation;
         }
+    }
+
+    public class SaveData
+    {
+        public string playerName;
+        public float maxHealth;
+        public float currentHealth;
+        public float level;
+        public float maxExperience;
+        public float currentExperience;
+        public int Hours;
+        public int Minutes;
+        public int Seconds;
+        public string LastLocation;
+        public Vector2 PlayerPosition;
+        public List<int> camPriority;
+        public int menuArtNumber;
+        public List<Item> Items;
     }
 }

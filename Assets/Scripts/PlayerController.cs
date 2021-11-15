@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour {
             }
         }
         SendPlayerNameToFlow();
-        GameEvents.SaveInitiated += Save;
+        //GameEvents.SaveInitiated += Save;
         Load();
     }
 	
@@ -180,32 +180,21 @@ public class PlayerController : MonoBehaviour {
     {
         mainFlow.SetStringVariable("playerName", playerName);
     }
-
-    void Save()
-    {
-        SaveLoad.Save<string>(playerName, "PlayerName");
-        SaveLoad.Save<float>(maxHealth, "PlayerMaxHP");
-        SaveLoad.Save<float>(currentHealth, "PlayerCurHP");
-        SaveLoad.Save<float>(level, "PlayerLevel");
-        SaveLoad.Save<float>(maxExperience, "PlayerMaxXP");
-        SaveLoad.Save<float>(currentExperience, "PlayerCurXP");
-        SaveLoad.Save<int>(menuArtNumber, "MenuVariable");
-    }
     
     void Load()
     {
-        if (SaveChecker.CheckSaveFile())
+        string saveString = SaveSystem.Load();
+        if (saveString != null)
         {
-            playerName = SaveLoad.Load<string>("PlayerName");
-            maxHealth = SaveLoad.Load<float>("PlayerMaxHP");
-            currentHealth = SaveLoad.Load<float>("PlayerCurHP");
-            level = SaveLoad.Load<float>("PlayerLevel");
-            maxExperience = SaveLoad.Load<float>("PlayerMaxXP");
-            currentExperience = SaveLoad.Load<float>("PlayerCurXP");
-            Vector2 tempVector;
-            tempVector.x = SaveLoad.Load<float>("PlayerPositionX");
-            tempVector.y = SaveLoad.Load<float>("PlayerPositiony");
-            playerObjects[0].transform.position = tempVector;
+            Savepoint.SaveData saveData = JsonUtility.FromJson<Savepoint.SaveData>(saveString);
+
+            playerName = saveData.playerName;
+            maxHealth = saveData.maxHealth;
+            currentHealth = saveData.currentHealth;
+            level = saveData.level;
+            maxExperience = saveData.maxExperience;
+            currentExperience = saveData.currentExperience;
+            playerObjects[0].transform.position = saveData.PlayerPosition;
         }
     }
 }

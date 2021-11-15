@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System.IO;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -22,7 +23,7 @@ public class MainMenu : MonoBehaviour
     {
         EventSystem.current.SetSelectedGameObject(buttonList.GetComponentInChildren<Selectable>().gameObject);
 
-        if (SaveChecker.CheckSaveFile())
+        if (File.Exists(SaveSystem.SAVE_FOLDER + "Save.txt"))
         {
             newGameButton.SetActive(false);
         }

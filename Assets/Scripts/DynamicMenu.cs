@@ -18,9 +18,12 @@ public class DynamicMenu : MonoBehaviour
 
     void Load()
     {
-        if(SaveChecker.CheckSaveFile())
+        string saveString = SaveSystem.Load();
+        if (saveString != null)
         {
-            number = SaveLoad.Load<int>("MenuVariable");
+            Savepoint.SaveData saveData = JsonUtility.FromJson<Savepoint.SaveData>(saveString);
+
+            number = saveData.menuArtNumber;
         }
     }
 

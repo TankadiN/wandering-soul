@@ -15,26 +15,26 @@ public class CameraSave : MonoBehaviour
     void Start()
     {
         vCams = cameraContainer.GetComponentsInChildren<CinemachineVirtualCamera>();
-        GameEvents.SaveInitiated += Save;
         Load();
     }
 
-    void Save()
+    public void GatherPriorities()
     {
         priority.Clear();
         for (int i = 0; i < vCams.Length; i++)
         {
             priority.Add(vCams[i].m_Priority);
         }
-
-        SaveLoad.Save<List<int>>(priority, "CameraPriorities");
     }
 
     void Load()
     {
-        if(SaveChecker.CheckSaveFile())
+        string saveString = SaveSystem.Load();
+        if (saveString != null)
         {
-            foreach (int number in SaveLoad.Load<List<int>>("CameraPriorities"))
+            Savepoint.SaveData saveData = JsonUtility.FromJson<Savepoint.SaveData>(saveString);
+
+            foreach (int number in saveData.camPriority)
             {
                 priority.Add(number);
             }
