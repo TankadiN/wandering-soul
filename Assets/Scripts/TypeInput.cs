@@ -59,8 +59,15 @@ public class TypeInput : MonoBehaviour
 
     public void DeleteLetter()
     {
-        playerName = playerName.Substring(0, playerName.Length - 1);
-        curLetters--;
+        if (curLetters == 0)
+        {
+            Debug.Log("There is nothing to delete.");
+        }
+        else
+        {
+            playerName = playerName.Substring(0, playerName.Length - 1);
+            curLetters--;
+        }
     }
 
     public void StoreName()

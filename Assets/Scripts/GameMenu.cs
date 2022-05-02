@@ -11,6 +11,8 @@ public class GameMenu : MonoBehaviour
     public GameObject GamePanel;
     public GameObject ItemPanel;
     public GameObject ItemInspect;
+    [Header("Buttons")]
+    public GameObject ItemsButton;
     [Header("Save Menu")]
     public GameObject SavePanel;
     public bool playerSaved;
@@ -76,6 +78,7 @@ public class GameMenu : MonoBehaviour
             {
                 ItemPanel.SetActive(false);
                 EventSystem.current.SetSelectedGameObject(GamePanel.GetComponentInChildren<Button>().gameObject);
+                ItemsButton.transform.Find("Background_Sel").gameObject.SetActive(false);
             }
             else if (GamePanel.activeInHierarchy)
             {
@@ -109,6 +112,7 @@ public class GameMenu : MonoBehaviour
     {
         ItemPanel.SetActive(true);
         EventSystem.current.SetSelectedGameObject(ItemPanel.GetComponentInChildren<Button>().gameObject);
+        ItemsButton.transform.Find("Background_Sel").gameObject.SetActive(true);
     }
 
     public void ItemInspectOpen()

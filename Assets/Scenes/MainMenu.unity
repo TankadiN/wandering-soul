@@ -2008,7 +2008,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  scrollPos: {x: -40.499702, y: 38.181828}
+  scrollPos: {x: -280.27234, y: 56.36365}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   blockViewHeight: 584
@@ -2020,8 +2020,9 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks:
-  - {fileID: 194264396}
-  selectedCommands: []
+  - {fileID: 194264448}
+  selectedCommands:
+  - {fileID: 194264469}
   variables:
   - {fileID: 194264446}
   description: 
@@ -3598,8 +3599,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 1018.13635
-    y: 78
+    x: 1020
+    y: 80
     width: 160
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
@@ -4948,7 +4949,7 @@ MonoBehaviour:
   targetComponentFullname: UnityEngine.Component[]
   targetComponentText: TextMeshProUGUI
   targetMethod: SetText
-  targetMethodText: 'SetText (String): Void'
+  targetMethodText: 'SetText (String, Boolean): Void'
   methodParameters:
   - objValue:
       typeAssemblyname: System.String, mscorlib, Version=4.0.0.0, Culture=neutral,
@@ -4957,8 +4958,25 @@ MonoBehaviour:
       intValue: 0
       boolValue: 0
       floatValue: 0
-      stringValue: '<size=42>What''s up guys, and welcome back to Wandering Soul:
-        In search of your body, a fan-game made by Wolfteam Studios'
+      stringValue: What's up guys and welcome to Wandering Souls, an undertale fangame
+        created by the Wolfteam Studios.
+      colorValue: {r: 0, g: 0, b: 0, a: 0}
+      gameObjectValue: {fileID: 0}
+      materialValue: {fileID: 0}
+      objectValue: {fileID: 0}
+      spriteValue: {fileID: 0}
+      textureValue: {fileID: 0}
+      vector2Value: {x: 0, y: 0}
+      vector3Value: {x: 0, y: 0, z: 0}
+    variableKey: 
+  - objValue:
+      typeAssemblyname: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      typeFullname: System.Boolean
+      intValue: 0
+      boolValue: 0
+      floatValue: 0
+      stringValue: 
       colorValue: {r: 0, g: 0, b: 0, a: 0}
       gameObjectValue: {fileID: 0}
       materialValue: {fileID: 0}
@@ -23161,7 +23179,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -23175,7 +23193,7 @@ MonoBehaviour:
   m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
-  m_textAlignment: 257
+  m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
   m_lineSpacing: 0

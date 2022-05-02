@@ -103,7 +103,7 @@ public class DisplayInventory : MonoBehaviour
         }
         else
         {
-            saveID = ID;
+            saveID = ID - 1;
 #if UNITY_EDITOR
             loadedSpr = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Resources/Images/" + inventory.Items[ID].itemImageName + ".png");
 #else
@@ -121,7 +121,7 @@ public class DisplayInventory : MonoBehaviour
     public void GetItemInfoBattle(int ID)
     {
         saveID = ID;
-        if (ID >= inventory.Items.Count)
+        if (saveID >= inventory.Items.Count)
         {
             Debug.Log("There is no item on this slot");
             itemImageBattle.sprite = null;
@@ -133,17 +133,18 @@ public class DisplayInventory : MonoBehaviour
         else
         {
 #if UNITY_EDITOR
-            loadedSpr = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Resources/Images/" + inventory.Items[ID].itemImageName + ".png");
+            loadedSpr = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Resources/Images/" + inventory.Items[saveID].itemImageName + ".png");
 #else
             loadedSpr = Resources.Load<Sprite>("Images/" + inventory.Items[ID].itemImageName);
 #endif
             itemImageBattle.color = new Color(itemImageBattle.color.r, itemImageBattle.color.g, itemImageBattle.color.b, 1f);
             itemImageBattle.sprite = loadedSpr;
             itemNameBattle.color = new Color(itemNameBattle.color.r, itemNameBattle.color.g, itemNameBattle.color.b, 1f);
-            itemNameBattle.text = inventory.Items[ID].itemName;
-            itemDescBattle.text = inventory.Items[ID].itemDescription;
+            itemNameBattle.text = inventory.Items[saveID].itemName;
+            itemDescBattle.text = inventory.Items[saveID].itemDescription;
         }
-        GetComponent<ItemInspect>().SendInfoToFlow();
         GetComponent<ItemInspect>().ID = saveID;
+        GetComponent<ItemInspect>().SendInfoToFlow();
+        Debug.Log("Item Slot:" + saveID);
     }
 }
