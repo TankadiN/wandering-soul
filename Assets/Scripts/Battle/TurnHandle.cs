@@ -194,6 +194,7 @@ public class TurnHandle : MonoBehaviour
             {
                 if(!enemyActed)
                 {
+                    box.SetActive(true);
                     playerHeart.gameObject.SetActive(true);
                     playerHeart.SetHeart();
 
@@ -239,6 +240,7 @@ public class TurnHandle : MonoBehaviour
         else if (state == BattleState.FinishedTurn)
         {
             playerHeart.gameObject.SetActive(false);
+            box.SetActive(false);
 
             if(playerStats.currentHealth <= 0)
             {
@@ -487,6 +489,7 @@ public class TurnHandle : MonoBehaviour
 
         if(selectedEnemy.curHealth <= 0)
         {
+            selectedEnemy.curHealth = 0;
             giveSpoils(SpoilsType.Dead);
             selectedEnemy.removeEnemy("DEAD");
         }

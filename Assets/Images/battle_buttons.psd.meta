@@ -53,6 +53,8 @@ TextureImporter:
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -62,8 +64,8 @@ TextureImporter:
   textureSettings:
     serializedVersion: 2
     filterMode: 0
-    aniso: -1
-    mipBias: -100
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -84,9 +86,12 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
   applyGammaDecoding: 0
   platformSettings:
   - serializedVersion: 3
@@ -336,6 +341,17 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      battle_buttons_0: 7726307686770892935
+      battle_buttons_6: 2194243981559744025
+      battle_buttons_2: 7215416296811143041
+      battle_buttons_5: 7204013016340129671
+      battle_buttons_3: 5694292653966732678
+      battle_buttons_4: -5427630353729409296
+      battle_buttons_9: -928066109432893357
+      battle_buttons_7: -5245320120822873226
+      battle_buttons_8: -2856088140430223287
+      battle_buttons_1: 5937797199647109957
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 1

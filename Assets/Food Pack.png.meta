@@ -123,7 +123,7 @@ TextureImporter:
       213: -2026015732052344631
     second: Food Pack_39
   externalObjects: {}
-  serializedVersion: 10
+  serializedVersion: 11
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -143,6 +143,8 @@ TextureImporter:
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -152,8 +154,8 @@ TextureImporter:
   textureSettings:
     serializedVersion: 2
     filterMode: 0
-    aniso: -1
-    mipBias: -100
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -174,9 +176,13 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -1055,6 +1061,47 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      Food Pack_23: 5293197964937676891
+      Food Pack_35: 668000840099886545
+      Food Pack_37: -8503958742407941514
+      Food Pack_18: 4818047426065410100
+      Food Pack_7: -4432913163493636867
+      Food Pack_26: 2375146386480542687
+      Food Pack_27: 2610300558976883327
+      Food Pack_11: 1385295037352095845
+      Food Pack_22: -3658053864888402173
+      Food Pack_6: -2368939572688267112
+      Food Pack_32: 2805093033265108894
+      Food Pack_38: 115048088836461023
+      Food Pack_3: 8861761871806804698
+      Food Pack_12: -8022849093278661041
+      Food Pack_0: -7677729207880525318
+      Food Pack_15: -8157090562497178376
+      Food Pack_25: -7839422073977331577
+      Food Pack_39: -2026015732052344631
+      Food Pack_34: 2356858098169620643
+      Food Pack_36: -482585638041212874
+      Food Pack_8: -1255247151672190627
+      Food Pack_30: 1675066918789820066
+      Food Pack_10: -5628993538474078070
+      Food Pack_17: -2338332305229113571
+      Food Pack_13: -3764138868619224865
+      Food Pack_24: 4093990162093649275
+      Food Pack_5: -2891858885073237266
+      Food Pack_9: -9049458107268444948
+      Food Pack_28: 8516302921328041704
+      Food Pack_21: -8787101895148487857
+      Food Pack_2: -1941811708945851415
+      Food Pack_29: -6063273986821906272
+      Food Pack_31: 5698759246523993027
+      Food Pack_20: -686352986911550502
+      Food Pack_33: -7997511841339135324
+      Food Pack_4: 2145546535534620527
+      Food Pack_14: -1161905122252887641
+      Food Pack_19: 758679538213734533
+      Food Pack_16: -7144789002471039955
+      Food Pack_1: -7547048322564260773
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

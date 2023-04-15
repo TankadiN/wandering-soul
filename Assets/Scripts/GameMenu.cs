@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.Rendering.PostProcessing;
 
 public class GameMenu : MonoBehaviour
 {
     public GameObject canvas;
+    public PostProcessVolume ppv;
+    public float timeBlur;
     [Header("Ingame Menu")]
     public GameObject GamePanel;
     public GameObject ItemPanel;
@@ -20,6 +23,7 @@ public class GameMenu : MonoBehaviour
 
     private Interaction interaction;
     private Selectable resetSelect;
+    private float timeElapsed;
 
     private void Start()
     {
@@ -30,6 +34,19 @@ public class GameMenu : MonoBehaviour
 
     private void Update()
     {
+        if (timeElapsed < timeBlur)
+        {
+            if(GamePanel.activeInHierarchy)
+            {
+                ppv.weight = Mathf.Lerp(ppv.weight, 1, timeElapsed / timeBlur);
+            }
+            else
+            {
+                ppv.weight = Mathf.Lerp(ppv.weight, 0, timeElapsed / timeBlur);
+            }
+            timeElapsed += Time.deltaTime;
+        }
+
         if (GameObject.Find("BattleManager").GetComponent<TurnHandle>().state == BattleState.StandBy)
         {
             if (Input.GetButtonDown("Menu"))
@@ -58,6 +75,7 @@ public class GameMenu : MonoBehaviour
                         interaction.InteractionSwitch();
                     }
                 }
+                timeElapsed = 0f;
             }
         }
 
@@ -86,6 +104,7 @@ public class GameMenu : MonoBehaviour
                 EventSystem.current.SetSelectedGameObject(null);
                 interaction.InteractionSwitch();
             }
+            timeElapsed = 0f;
         }
         if(Input.GetButtonDown("Submit"))
         {
@@ -106,6 +125,7 @@ public class GameMenu : MonoBehaviour
         ItemInspect.SetActive(false);
         ItemPanel.SetActive(false);
         GamePanel.SetActive(false);
+        timeElapsed = 0f;
     }
 
     public void ItemPanelOpen()

@@ -103,7 +103,7 @@ public class DisplayInventory : MonoBehaviour
         }
         else
         {
-            saveID = ID - 1;
+            saveID = ID;
 #if UNITY_EDITOR
             loadedSpr = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Resources/Images/" + inventory.Items[ID].itemImageName + ".png");
 #else
